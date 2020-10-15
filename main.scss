@@ -1,0 +1,24 @@
+/* === Global SASS File === //
+Handles import of all Sass and partials, outputting as style.css
+!
+Theme Name: Cross Africa
+Author: Silverless
+Author URI: https://silverless.co.uk/
+Version: 1.0
+*/
+/* === 1 - Base ===*/
+@import "inc/scss/1base/variables.scss";
+@import "inc/scss/1base/mixins";
+@import "inc/scss/1base/grid.scss";
+@import "inc/scss/1base/typography.scss";
+/* === 2 - Atomic ===*/
+@import "inc/scss/2components/global.scss";
+@import "inc/scss/2components/header.scss";
+@import "inc/scss/2components/body.scss";
+@import "inc/scss/2components/footer.scss";
+@import "inc/scss/2components/page-overrides.scss";
+/* === 3 - Vendor ===*/
+@import "inc/scss/3vendor/vendor.scss";
+/* === 4 - Modifiers ===*/
+@import "inc/scss/4modifiers/modifiers.scss";
+@import "inc/scss/4modifiers/media-queries.scss";

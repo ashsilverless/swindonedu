@@ -1,0 +1,33 @@
+/*! == VARIABLES == */
+
+/* COLORS */
+$color_brand_green: #69AA9D;
+$color_brand_blue: #497396;
+$color_brand_dark-blue: #384357;
+
+$color_grey_darkest:#1a1a1a; //background on body(dark)
+$color_grey_darker:#2f2f2f;
+$color_grey_dark:#4A4A49;
+$color_grey_mid:#484848;
+$color_grey_light:#888888;
+$color_grey_lighter:#d4d4d4;
+$color_grey_lightest:#ebebeb; //background on body (default)
+
+/* TYPOGRAPHY */
+$font_primary: hero-new, sans-serif;;
+$font_secondary: lato, sans-serif;
+$font_size: 20;
+$font_line-height: 20;
+
+/* GRID */
+$container-width: 1350px;
+$grid-gap: 0;
+$breakpoints: (
+  xl: 1200px,
+  lg: 992px,
+  md: 768px,
+  sm: 576px,
+  xs: 350px
+);
+$page-split: 65% 35%;
+$left-offset: 5rem;

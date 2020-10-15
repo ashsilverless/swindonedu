@@ -1,0 +1,35 @@
+/*! == FOOTER == */
+footer {
+	.footer {
+		padding: 2rem 0;
+		border-radius:.5rem;
+		background:white;
+		.contact-section {
+			padding-left: $left-offset;
+		}
+	}
+	p {
+		margin: 0;
+	}
+}
+
+.socket {
+	grid-column: 1/-1;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	padding: 1rem 0;
+	.logo-holder {
+		grid-column: 2/3;
+		text-align: center;
+		svg {
+			width:5rem;
+		}
+	}
+	.copyright {
+		grid-column: 3/4;
+		text-align: right;
+		p {
+			font-size: 0.8rem;
+		}
+	}
+}

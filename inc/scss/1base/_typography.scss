@@ -1,0 +1,97 @@
+html body {
+  font-size: $font_size * 1px;
+  line-height: $font_size * 1px;
+  font-family: $font_secondary;
+  font-weight: 300;
+  letter-spacing: 0.05rem;
+  color: $color_grey_mid;
+}
+
+body p {
+  line-height: $font_line-height * 1.5px;
+  + p {
+    
+  }
+
+  strong {
+    font-weight: 400;
+  }
+}
+
+body a {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4 .h5,
+.h6 {
+  font-size: 1rem;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  li {
+
+    /*&:before {
+      content: "• ";
+      padding-right:10px;
+      line-height:34px;
+    }*/
+  }
+}
+
+.heading {
+  @include heading;
+  margin: 0;
+  &__1 {
+    font: ($font_size * 4) + px / ($font_line-height * 5) + px $font_primary;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+  }
+  &__2 {
+    font: ($font_size * 4) + px / ($font_line-height * 3) + px $font_primary;
+    font-weight: 200;
+  }
+  &__3 {
+    font: ($font_size * 1.8) + px / ($font_line-height * 1.5) + px $font_primary;
+    span {
+      font: ($font_size * 1.5) + px / ($font_line-height * 1.2) + px
+        $font_primary;
+    }
+  }
+  &__4 {
+    font: ($font_size * 1.4) + px / ($font_line-height * 1) + px $font_primary;
+  }
+  &__5 {
+    font: ($font_size * 1) + px / ($font_line-height * 1.2) + px $font_primary;
+  }
+  &__6 {
+    font: ($font_size * 0.85) + px / ($font_line-height * 1.5) + px
+      $font_primary;
+  }
+  &__7 {
+    font: ($font_size * 0.85) + px / ($font_line-height * 1) + px
+      $font_secondary;
+    font-weight: 200;
+  }
+  &__300 {
+    font-weight: 300;
+  }
+  &__400 {
+    font-weight: 400;
+  }
+}
