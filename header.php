@@ -19,6 +19,12 @@
 <?php wp_head(); ?>
 </head>
 <body <?php body_class('light-mode'); ?>>
+	<div class="modal-wrapper">
+		<div class="modal-wrapper__container">
+			THIS IS MODAL CONTENT
+		</div>
+	</div>
+	
 	<div id="page" class="site-wrapper">
 		<header>
 			<div class="container">

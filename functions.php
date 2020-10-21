@@ -206,15 +206,6 @@ function bbloomer_alter_price_cart( $cart ) {
 		}
 	}
 }
-/**
-Google Map API with ACF
-*/
-// Method 1: Filter.
-function my_acf_google_map_api( $api ){
-	$api['key'] = 'AIzaSyDdLgvjad0_pDCxQocNwFUjrAer1G9zx-g';
-	return $api;
-}
-add_filter('acf/fields/google_map/api', 'my_acf_google_map_api');
 
 /**
 Add Custom Field to Checkout
