@@ -22,10 +22,8 @@ $sides: (top, bottom, left, right); // Sides var
 }
 
 .sticky {
-    position: -webkit-sticky;
     position: sticky;
-    top: 12em;
-    margin-bottom: 2em;
+    top:10rem;
 }
 
 /* Height */

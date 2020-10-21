@@ -7,6 +7,9 @@
   grid-template-columns:$page-split;
   max-width: $container-width;
   margin: 0 auto;
+  &.grid-gap {
+    grid-gap: 3rem;
+  }
   }
 
 .main-content {

@@ -39,7 +39,7 @@ add_action('after_setup_theme', 'swindonedu_remove_admin_bar');
 
 /**= Add Custom Post Types and Taxonomies =**/
 
-//require_once ('custom-post-types.php');
+require_once ('custom-post-types.php');
 
 /****************************************************/
 /*                     Functions                     /
@@ -50,6 +50,30 @@ function swindonedu_scripts() {
 	wp_enqueue_script( 'swindonedu-core-js', get_template_directory_uri() . '/inc/js/compiled.js', array('jquery'), true);
 	wp_enqueue_script( 'swindonedu-owl-js', get_template_directory_uri() . '/inc/js/owl.carousel.min.js', array('jquery'), true);
 }
+
+// add async and defer attributes to enqueued scripts
+function shapeSpace_script_loader_tag($tag, $handle, $src) {
+	
+	if ($handle === 'my-plugin-javascript-handle') {
+		
+		if (false === stripos($tag, 'async')) {
+			
+			$tag = str_replace(' src', ' async="async" src', $tag);
+			
+		}
+		
+		if (false === stripos($tag, 'defer')) {
+			
+			$tag = str_replace('<script ', '<script defer ', $tag);
+			
+		}
+		
+	}
+	
+	return $tag;
+	
+}
+add_filter('script_loader_tag', 'shapeSpace_script_loader_tag', 10, 3);
 
 function swindonedu_custom_menu() {
 	register_nav_menus(array(
@@ -185,8 +209,9 @@ function bbloomer_alter_price_cart( $cart ) {
 /**
 Google Map API with ACF
 */
+// Method 1: Filter.
 function my_acf_google_map_api( $api ){
-	$api['key'] = 'AIzaSyCSpI3iiQxccOTl4TMpWdVaEdUahwtD_Lc';
+	$api['key'] = 'AIzaSyDdLgvjad0_pDCxQocNwFUjrAer1G9zx-g';
 	return $api;
 }
 add_filter('acf/fields/google_map/api', 'my_acf_google_map_api');
@@ -449,13 +474,6 @@ function bbloomer_save_name_fields( $customer_id ) {
 			update_user_meta( $customer_id, 'billing_city', sanitize_text_field($_POST['billing_city']) );
 	}    
 }
-
-
-
-
-
-
-
 
 /**
 Custom Fields on Register Form

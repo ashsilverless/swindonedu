@@ -1,4 +1,4 @@
-//@prepros-prepend jquery.magnific-popup.js
+//@prepros-prepend mixitup.min.js
 jQuery(document).ready(function($) {
 	$('html')
 		.delay(300)
@@ -9,6 +9,29 @@ jQuery(document).ready(function($) {
 
 	$headerHeight = $('header').outerHeight(true);
 	$('.hero .heading').css('padding-top', $headerHeight);
+	$('.book-cta').css('top', $headerHeight + 20);
+	$('.under-book-button').css('top', $headerHeight + 120);
+
+	function overlayFooter() {
+		$footerHeight = $('footer').outerHeight(true);
+		$footerOverlayHeight = $footerHeight + 100;
+		$('.dark-section').css('padding-bottom', $footerOverlayHeight);
+		$('footer').css('margin-top', -$footerHeight);
+	}
+
+	if ($('body').hasClass('single-product')) {
+		overlayFooter();
+	}
+
+	$(window).scroll(function() {
+		var scroll = $(window).scrollTop();
+
+		if (scroll >= $headerHeight) {
+			$('body').addClass('scrolled');
+		} else {
+			$('body').removeClass('scrolled');
+		}
+	});
 
 	//Random class change on divs in hero
 	var vectorHexOutlines = document.getElementsByClassName('hex-outline');
@@ -53,6 +76,13 @@ jQuery(document).ready(function($) {
 			.children('.read-more')
 			.slideDown();
 	});
+
+	$('.toggle__item .head').click(function(e) {
+		e.preventDefault();
+		$(this)
+			.siblings('.toggle__item .body')
+			.slideToggle();
+	});
 	/*
 
   $(".expanding-section__trigger").click(function (e) {
@@ -70,4 +100,8 @@ jQuery(document).ready(function($) {
   });
 
   */
+
+	$(function() {
+		$('.filter-target').mixItUp();
+	});
 }); //Don't remove ---- end of jQuery wrapper

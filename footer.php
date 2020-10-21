@@ -6,11 +6,14 @@
 ?>
 </main>
 <footer>
+	<div class="vector-wrapper">
+		<?php get_template_part ('inc/img/hero-vector');?>
+	</div>
 	<div class="container footer">
 		<div class="contact-section">
-			<h4 class="heading heading__6">Contact Us</h4>
-			<p>Phone</p>
-			<p>Mail</p>
+			<h4 class="heading heading__7">Contact Us</h4>
+			<p><i class="fas fa-phone"></i><?php the_field('phone', 'options');?></p>
+			<p><i class="fas fa-envelope"></i><?php the_field('email', 'options');?></p>
 		</div>
 		
 		<div  class="menu-section">
@@ -18,10 +21,12 @@
 				'theme_location' => 'footer-menu'
 			) ); ?>
 			
-			<!--<div class="right-col termscons">
-				<a href="/terms-conditions">Terms & Conditions</a> |
-				<a href="/privacy">Privacy Policy</a>
-			</div>-->
+			<div class="termscons">
+				<ul>
+					<li><a href="/terms-conditions">Terms & Conditions</a></li>
+					<li><a href="/privacy">Privacy Policy</a></li>
+				</ul>
+			</div>
 		</div>
 	</div>
 	<div class="container">

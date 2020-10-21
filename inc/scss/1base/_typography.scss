@@ -9,6 +9,8 @@ html body {
 
 body p {
   line-height: $font_line-height * 1.5px;
+  margin: 0;
+  margin-bottom: 1rem;
   + p {
     
   }
@@ -53,40 +55,51 @@ ul {
     }*/
   }
 }
-
+button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-size: inherit;
+  font-family: inherit;
+  font-weight: inherit;
+  color: inherit;
+  background: inherit;
+}
 .heading {
   @include heading;
-  margin: 0;
   &__1 {
     font: ($font_size * 4) + px / ($font_line-height * 5) + px $font_primary;
     text-transform: uppercase;
     letter-spacing: 0.2rem;
   }
   &__2 {
-    font: ($font_size * 4) + px / ($font_line-height * 3) + px $font_primary;
-    font-weight: 200;
+    font: ($font_size * 1.8) + px / ($font_line-height * 3) + px $font_primary;
+    text-transform: uppercase;
+    color: $color_brand_green;
   }
   &__3 {
-    font: ($font_size * 1.8) + px / ($font_line-height * 1.5) + px $font_primary;
-    span {
-      font: ($font_size * 1.5) + px / ($font_line-height * 1.2) + px
-        $font_primary;
-    }
+    font: ($font_size * 1.6) + px / ($font_line-height * 1.5) + px $font_primary;
+    text-transform: uppercase;
+    color: $color_brand_green;
   }
   &__4 {
-    font: ($font_size * 1.4) + px / ($font_line-height * 1) + px $font_primary;
+    font: ($font_size * 1.4) + px / ($font_line-height * 2) + px $font_primary;
+    text-transform: uppercase;
+    color: $color_brand_green;
   }
   &__5 {
     font: ($font_size * 1) + px / ($font_line-height * 1.2) + px $font_primary;
+    text-transform: uppercase;
   }
   &__6 {
-    font: ($font_size * 0.85) + px / ($font_line-height * 1.5) + px
-      $font_primary;
+    font: ($font_size * 0.8) + px / ($font_line-height * 1.5) + px $font_primary;
+    text-transform: uppercase;
+    font-weight: 200;
   }
   &__7 {
-    font: ($font_size * 0.85) + px / ($font_line-height * 1) + px
-      $font_secondary;
-    font-weight: 200;
+    font: ($font_size * 0.75) + px / ($font_line-height * 1) + px $font_secondary;
+    font-weight: 400;
+    text-transform: uppercase;
   }
   &__300 {
     font-weight: 300;
@@ -94,4 +107,10 @@ ul {
   &__400 {
     font-weight: 400;
   }
+  &__no-caps {
+    text-transform: none;
+  }
+}
+.heading + p {
+  margin-top: 1rem;
 }

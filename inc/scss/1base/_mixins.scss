@@ -66,9 +66,10 @@
 }
 
 @mixin heading {
-    font-family:$font_primary;
-    font-style: normal;
-    color: $color_grey_dark;
+  margin: 0;
+  font-family:$font_primary;
+  font-style: normal;
+  color: $color_grey_dark;
 }
 
 @mixin transition-all {
