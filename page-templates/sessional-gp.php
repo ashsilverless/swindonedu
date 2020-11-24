@@ -21,6 +21,18 @@ get_header();?>
 			</div>
 		</section>
 		<section>
+			<div class="general-links">
+			<?php if( have_rows('links') ):
+			while( have_rows('links') ): the_row(); ?>
+			<div class="general-links__item">
+				<h3 class="heading heading__6"><?php the_sub_field('title');?></h3>
+				<?php the_sub_field('description');?>
+				<a href="<?php the_sub_field('link');?>" target="_blank"><i class="fas fa-chevron-right"></i></a>
+			</div>
+			<?php endwhile; endif;?>
+			</div>
+		</section>
+		<section>
 			<div class="form">
 				FORM
 			</div>

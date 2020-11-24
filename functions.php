@@ -53,25 +53,15 @@ function swindonedu_scripts() {
 
 // add async and defer attributes to enqueued scripts
 function shapeSpace_script_loader_tag($tag, $handle, $src) {
-	
 	if ($handle === 'my-plugin-javascript-handle') {
-		
 		if (false === stripos($tag, 'async')) {
-			
 			$tag = str_replace(' src', ' async="async" src', $tag);
-			
 		}
-		
 		if (false === stripos($tag, 'defer')) {
-			
 			$tag = str_replace('<script ', '<script defer ', $tag);
-			
 		}
-		
 	}
-	
 	return $tag;
-	
 }
 add_filter('script_loader_tag', 'shapeSpace_script_loader_tag', 10, 3);
 
@@ -106,6 +96,11 @@ function swindonedu_custom_fonts() {
 		));
 	}
 }
+
+function my_login_stylesheet() {
+	wp_enqueue_style( 'custom-login', get_stylesheet_directory_uri() . '/style.css' );
+}
+add_action( 'login_enqueue_scripts', 'my_login_stylesheet' );
 
 function swindonedu_remove_menus(){
 	remove_menu_page( 'edit-comments.php' ); //Comments
@@ -166,7 +161,7 @@ if (class_exists('Woocommerce')){
    
 /**
 Calculates product price if user is a member (businessbloomer)
-*/
+
 add_filter( 'woocommerce_get_price_html', 'bbloomer_alter_price_display', 9999, 10 );
  
 function bbloomer_alter_price_display( $price_html, $product ) {
@@ -178,13 +173,15 @@ function bbloomer_alter_price_display( $price_html, $product ) {
 	if ( '' === $product->get_price() ) return $price_html;
 	
 	// IF CUSTOMER LOGGED IN, APPLY DISCOUNT   
-	if ( wc_current_user_has_role( 'gp_role' ) || wc_current_user_has_role( 'standard_role' ) ) {
+	if ( wc_current_user_has_role( 'gp_training_membership' ) || wc_current_user_has_role( 'gp_membership' ) ) {
+
 		$orig_price = wc_get_price_to_display( $product );
 		$price_html = wc_price( $orig_price * .18 );
 		//$price_html = '<span class="woocommerce-Price-amount amount">FREE</span>';
+		
 	}
 	return $price_html;
-}
+}*/
  
 /**
 Calculates cart/checkout price if user is a member (businessbloomer)
@@ -197,19 +194,20 @@ function bbloomer_alter_price_cart( $cart ) {
  
 	if ( did_action( 'woocommerce_before_calculate_totals' ) >= 2 ) return;
  
-	if ( wc_current_user_has_role( 'gp_role' ) || wc_current_user_has_role( 'standard_role' ) ) {
-		
+	if ( wc_current_user_has_role( 'gp_training_membership' ) || wc_current_user_has_role( 'gp_membership' ) ) {
 		foreach ( $cart->get_cart() as $cart_item_key => $cart_item ) {
-			$product = $cart_item['data'];
-			$price = $product->get_price();
-			$cart_item['data']->set_price( $price * .18 );
+			//if( has_term( 26, 'product_cat' ) ) {
+				$product = $cart_item['data'];
+				$price = $product->get_price();
+				$cart_item['data']->set_price( $price * .0 );
+			//}
 		}
 	}
 }
 
 /**
 Add Custom Field to Checkout
-*/
+
 add_action( 'woocommerce_after_order_notes', 'my_custom_checkout_field' );
 
 function my_custom_checkout_field( $checkout ) {
@@ -226,9 +224,40 @@ function my_custom_checkout_field( $checkout ) {
 	echo '</div>';
 
 }
+*/
+/**
+ * Custom Checkboxes on checkout
+
+
+add_action('woocommerce_after_order_notes', 'cw_custom_checkbox_fields');
+function cw_custom_checkbox_fields( $checkout ) {
+	echo '<div class="cw_custom_class"><h3>'.__('Give Sepration Heading: ').'</h3>';
+	woocommerce_form_field( 'custom_checkbox', array(
+		'type'          => 'checkbox',
+		'label'         => __('Agreegation Policy.'),
+		'required'  => true,
+	), $checkout->get_value( 'custom_checkbox' ));
+	echo '</div>';
+}
+
+add_action('woocommerce_checkout_process', 'cw_custom_process_checkbox');
+function cw_custom_process_checkbox() {
+	global $woocommerce;
+	if (!$_POST['custom_checkbox'])
+		wc_add_notice( __( 'Notification message.' ), 'error' );
+}
+
+add_action('woocommerce_checkout_update_order_meta', 'cw_checkout_order_meta');
+function cw_checkout_order_meta( $order_id ) {
+	if ($_POST['custom_checkbox']) update_post_meta( $order_id, 'checkbox name', esc_attr($_POST['custom_checkbox']));
+}
+*/
+
+
+
 /**
  * Process the checkout
- */
+
 add_action('woocommerce_checkout_process', 'my_custom_checkout_field_process');
 
 function my_custom_checkout_field_process() {
@@ -236,9 +265,9 @@ function my_custom_checkout_field_process() {
 	if ( ! $_POST['my_field_name'] )
 		wc_add_notice( __( 'Please enter something into this new shiny field.' ), 'error' );
 }
+*/
 /**
  * Update the order meta with field value
- */
 add_action( 'woocommerce_checkout_update_order_meta', 'my_custom_checkout_field_update_order_meta' );
 
 function my_custom_checkout_field_update_order_meta( $order_id ) {
@@ -246,17 +275,39 @@ function my_custom_checkout_field_update_order_meta( $order_id ) {
 		update_post_meta( $order_id, 'My Field', sanitize_text_field( $_POST['my_field_name'] ) );
 	}
 }
+*/
 /**
  * Display field value on the order edit page
- */
+
 add_action( 'woocommerce_admin_order_data_after_billing_address', 'my_custom_checkout_field_display_admin_order_meta', 10, 1 );
 
 function my_custom_checkout_field_display_admin_order_meta($order){
 	echo '<p><strong>'.__('My Field').':</strong> ' . get_post_meta( $order->id, 'My Field', true ) . '</p>';
 }
+*/
+
+//add_role( 'customer', 'Non-Member Customer', get_role( 'author' )->capabilities );
 
 
+add_action( 'woocommerce_order_status_completed', 'set_change_role_on_purchase' );
 
+function set_change_role_on_purchase( $order_id ) {
+
+// get order object and items
+	$order = new WC_Order( $order_id );
+	$items = $order->get_items();
+	$product_cat = 'course'; 
+	
+	foreach ( $items as $item ) {
+
+		if( $product_cat == $item['category'] && $order->user_id ) {
+			$user = new WP_User( $order->user_id );
+
+			// Add new role
+			$user->add_role( 'customer' );
+		}
+	}
+}
 
 /**
 Change user role when membership purchased
@@ -266,24 +317,24 @@ function change_role_on_purchase( $order_id ) {
 	$order = wc_get_order( $order_id );
 	$items = $order->get_items();
 	
-	$checkifstandard = array( 21 );//This is checking to see if the user has purchased a Standard Membership
-	$checkifgp = array( 113 );//This is checking to see if the user has purchased a GP Membership
+	$checkifmember = array( 21 );//This is checking to see if the user has purchased a GP Membership
+	$checkifgptraining = array( 113 );//This is checking to see if the user has purchased a GP Training Membership
 	
 	foreach ( $items as $item ) {
-		if ( $order->user_id > 0 && in_array( $item['product_id'], $checkifstandard ) ) {
+		if ( $order->user_id > 0 && in_array( $item['product_id'], $checkifmember ) ) {
 			$user = new WP_User( $order->user_id );
-			add_role(  'standard_role', 'Standard Membership', array( 'read' => true, 'level_0' => true ) ); 
+			add_role(  'gp_membership', 'GP Membership', array( 'read' => true, 'level_0' => true ) ); 
 			// Change role
 			$user->remove_role( 'customer' );
-			$user->remove_role( 'gp_role' );
-			$user->add_role( 'standard_role' );
-		} elseif ( $order->user_id > 0 && in_array( $item['product_id'], $checkifgp ) ){
+			$user->remove_role( 'gp_training_membership' );
+			$user->add_role( 'gp_membership' );
+		} elseif ( $order->user_id > 0 && in_array( $item['product_id'], $checkifgptraining ) ){
 			$user = new WP_User( $order->user_id );
-			add_role(  'gp_role', 'GP Membership', array( 'read' => true, 'level_0' => true ) ); 
+			add_role(  'gp_training_membership', 'GP Training Membership', array( 'read' => true, 'level_0' => true ) ); 
 			// Change role
 			$user->remove_role('customer');
-			$user->remove_role('standard_role');
-			$user->add_role( 'gp_role' );
+			$user->remove_role('gp_membership');
+			$user->add_role( 'gp_training_membership' );
 		// Exit the loop
 		break;
 		}
@@ -466,27 +517,23 @@ function bbloomer_save_name_fields( $customer_id ) {
 	}    
 }
 
-/**
-Custom Fields on Register Form
-*/
-add_action( 'woocommerce_register_form', 'misha_add_register_form_field' );
-function misha_add_register_form_field(){
- 
-	woocommerce_form_field(
-		'country_to_visit',
-		array(
-			'type'        => 'text',
-			'required'    => true, // just adds an "*"
-			'label'       => 'Country you want to visit the most'
-		),
-		( isset($_POST['country_to_visit']) ? $_POST['country_to_visit'] : '' )
-	);
- 
-}
 
 /**
-Create Register Form
+Change Billing Details
 */
+function wc_billing_field_strings( $translated_text, $text, $domain ) {
+switch ( $translated_text ) {
+case 'Billing details' :
+$translated_text = __( 'Booking Information', 'woocommerce' );
+break;
+}
+return $translated_text;
+}
+add_filter( 'gettext', 'wc_billing_field_strings', 20, 3 );
+
+/**
+Create Additional User Field
+
 add_action( 'woocommerce_created_customer', 'misha_save_register_fields' );
 function misha_save_register_fields( $customer_id ){
  
@@ -518,6 +565,374 @@ add_action( 'edit_user_profile_update', 'my_save_extra_profile_fields' );
 function my_save_extra_profile_fields( $user_id ) {
 	if ( !current_user_can( 'edit_user', $user_id ) )
 		return false;
-	/* Copy and paste this line for additional fields. Make sure to change 'twitter' to the field ID. */
+	// Copy and paste this line for additional fields. Make sure to change 'twitter' to the field ID.
 	update_usermeta( $user_id, 'country_to_visit', $_POST['country_to_visit'] );
+}
+*/
+
+/**
+Override Default Log In Form
+*/
+
+function wp_login_form_set( $args = array() ) {
+	$defaults = array(
+		'echo'           => true,
+		// Default 'redirect' value takes the user back to the request URI.
+		'redirect'       => ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],
+		'form_id'        => 'loginform',
+		'label_username' => __( 'Username or Email Address' ),
+		'label_password' => __( 'Password' ),
+		'label_remember' => __( 'Remember me' ),
+		'label_log_in'   => __( 'Submit' ),
+		'id_username'    => 'user_login',
+		'id_password'    => 'user_pass',
+		'id_remember'    => 'rememberme',
+		'id_submit'      => 'wp-submit',
+		'remember'       => true,
+		'value_username' => '',
+		// Set 'value_remember' to true to default the "Remember me" checkbox to checked.
+		'value_remember' => true,
+	);
+ 
+	/**
+	 * Filters the default login form output arguments.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @see wp_login_form()
+	 *
+	 * @param array $defaults An array of default login form arguments.
+	 */
+	$args = wp_parse_args( $args, apply_filters( 'login_form_defaults', $defaults ) );
+ 
+	/**
+	 * Filters content to display at the top of the login form.
+	 *
+	 * The filter evaluates just following the opening form tag element.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param string $content Content to display. Default empty.
+	 * @param array  $args    Array of login form arguments.
+	 */
+	$login_form_top = apply_filters( 'login_form_top', '', $args );
+ 
+	/**
+	 * Filters content to display in the middle of the login form.
+	 *
+	 * The filter evaluates just following the location where the 'login-password'
+	 * field is displayed.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param string $content Content to display. Default empty.
+	 * @param array  $args    Array of login form arguments.
+	 */
+	$login_form_middle = apply_filters( 'login_form_middle', '', $args );
+ 
+	/**
+	 * Filters content to display at the bottom of the login form.
+	 *
+	 * The filter evaluates just preceding the closing form tag element.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param string $content Content to display. Default empty.
+	 * @param array  $args    Array of login form arguments.
+	 */
+	$login_form_bottom = apply_filters( 'login_form_bottom', '', $args );
+ 
+	$form = '
+		<form name="' . $args['form_id'] . '" id="' . $args['form_id'] . '" action="' . esc_url( site_url( 'wp-login.php', 'login_post' ) ) . '" method="post" class="set-form">
+			' . $login_form_top . '
+			<p class="login-username form-field">
+				<label for="' . esc_attr( $args['id_username'] ) . '">Username</label>
+				<input type="text" name="log" id="' . esc_attr( $args['id_username'] ) . '" class="input" value="' . esc_attr( $args['value_username'] ) . '" size="20" />
+			</p>
+			<p class="login-password form-field">
+				<label for="' . esc_attr( $args['id_password'] ) . '">Password</label>
+				<input type="password" name="pwd" id="' . esc_attr( $args['id_password'] ) . '" class="input" value=""/>
+			</p>
+			<p class="login-submit">
+				<input type="submit" name="wp-submit" id="' . esc_attr( $args['id_submit'] ) . '" class="submit" value="' . esc_attr( $args['label_log_in'] ) . '" />
+				<input type="hidden" name="redirect_to" value="' . esc_url( $args['redirect'] ) . '" />
+			</p>
+			' . $login_form_middle . '
+			' . ( $args['remember'] ? '<p class="login-remember">
+			<span class="checkbox-wrapper">
+				<input name="rememberme" type="checkbox" id="' . esc_attr( $args['id_remember'] ) . '" value="forever"' . ( $args['value_remember'] ? ' checked="checked"' : '' ) . ' />
+			</span>
+			<label> ' . esc_html( $args['label_remember'] ) . '</label></p>' : '' ) . '
+			
+			' . $login_form_bottom . '
+		</form>';
+ 
+	if ( $args['echo'] ) {
+		echo $form;
+	} else {
+		return $form;
+	}
+}
+
+/**
+Login Fail Redirect
+*/
+add_action( 'wp_login_failed', 'set_custom_login_failed' );
+function set_custom_login_failed( $username ) {
+	$referrer = wp_get_referer();
+	if ( $referrer && ! strstr($referrer, 'wp-login') && ! strstr($referrer,'wp-admin') ){
+		wp_redirect( '/wp-login.php' );
+		exit;
+	}
+}
+
+/**
+Add Product Category as ACF Filter
+*/
+
+// step 1 add a location rule type
+  add_filter('acf/location/rule_types', 'acf_wc_product_type_rule_type');
+  function acf_wc_product_type_rule_type($choices) {
+	// first add the "Product" Category if it does not exist
+	// this will be a place to put all custom rules assocaited with woocommerce
+	// the reason for checking to see if it exists or not first
+	// is just in case another custom rule is added
+	if (!isset($choices['Product'])) {
+	  $choices['Product'] = array();
+	}
+	// now add the 'Category' rule to it
+	if (!isset($choices['Product']['product_cat'])) {
+	  // product_cat is the taxonomy name for woocommerce products
+	  $choices['Product']['product_cat_term'] = 'Product Category Term';
+	}
+	return $choices;
+  }
+  
+  // step 2 skip custom rule operators, not needed
+  
+  
+  // step 3 add custom rule values
+  add_filter('acf/location/rule_values/product_cat_term', 'acf_wc_product_type_rule_values');
+  function acf_wc_product_type_rule_values($choices) {
+	// basically we need to get an list of all product categories
+	// and put the into an array for choices
+	$args = array(
+	  'taxonomy' => 'product_cat',
+	  'hide_empty' => false
+	);
+	$terms = get_terms($args);
+	foreach ($terms as $term) {
+	  $choices[$term->term_id] = $term->name;
+	}
+	return $choices;
+  }
+  
+  // step 4, rule match
+  add_filter('acf/location/rule_match/product_cat_term', 'acf_wc_product_type_rule_match', 10, 3);
+  function acf_wc_product_type_rule_match($match, $rule, $options) {
+	if (!isset($_GET['tag_ID'])) {
+	  // tag id is not set
+	  return $match;
+	}
+	if ($rule['operator'] == '==') {
+	  $match = ($rule['value'] == $_GET['tag_ID']);
+	} else {
+	  $match = !($rule['value'] == $_GET['tag_ID']);
+	}
+	return $match;
+  }
+  
+  /**
+  Add Checkboxes and link to account profile
+  */
+  
+  add_action('show_user_profile', 'my_user_profile_edit_action');
+  add_action('edit_user_profile', 'my_user_profile_edit_action');
+  add_action( 'woocommerce_before_order_notes', 'my_user_profile_edit_action');
+  function my_user_profile_edit_action($user) {
+	$partner_checked = (isset($user->gp_partner) && $user->gp_partner) ? ' checked="checked"' : '';
+	$salaried_checked = (isset($user->salaried_gp) && $user->salaried_gp) ? ' checked="checked"' : '';
+	$locum_checked = (isset($user->locum_gp) && $user->locum_gp) ? ' checked="checked"' : '';
+	$new_checked = (isset($user->new_gp) && $user->new_gp) ? ' checked="checked"' : '';
+	$practice_checked = (isset($user->practice_manager) && $user->practice_manager) ? ' checked="checked"' : '';
+  }
+  add_action('personal_options_update', 'my_user_profile_update_action');
+  add_action('edit_user_profile_update', 'my_user_profile_update_action');
+  add_action('woocommerce_checkout_update_user_meta', 'my_user_profile_update_action');
+  add_action('woocommerce_checkout_before_customer_details', 'my_user_profile_update_action');
+  function my_user_profile_update_action($user_id) {
+	update_user_meta($user_id, 'gp_partner', isset($_POST['gp_partner']));
+	update_user_meta($user_id, 'salaried_gp', isset($_POST['salaried_gp']));
+	update_user_meta($user_id, 'locum_gp', isset($_POST['locum_gp']));
+	update_user_meta($user_id, 'new_gp', isset($_POST['new_gp']));
+	update_user_meta($user_id, 'practice_manager', isset($_POST['practice_manager']));
+  }
+
+/**
+  Redirect on incorrect password
+  */
+
+add_action( 'wp_login_failed', 'custom_login_failed' );
+function custom_login_failed( $username )
+{
+	$referrer = wp_get_referer();
+
+	if ( $referrer && ! strstr($referrer, 'wp-login') && ! strstr($referrer,'wp-admin') )
+	{
+		wp_redirect( $url );
+		exit;
+	}
+}
+
+/**
+  Change Logo on Login Page
+  */
+function my_login_logo_one() { 
+	get_template_part ('inc/img/set-logo');
+	} 
+add_action( 'login_message', 'my_login_logo_one' );
+
+/**
+  Change Components on Login Page
+  */function set_custom_login() { 
+	echo '<div class="reset-password">
+	<a href="http://swindon-education-trust.local/my-account/lost-password/"> <i class="fas fa-question-circle"></i> Lost your password?</a>
+</div>';
+	} 
+add_action( 'login_form', 'set_custom_login' );
+
+function set_custom_login_footer() { 
+	$url = home_url();
+	echo '<div class="return-to-site"><a href="'. $url .'">&larr; Return to Swindon Education Trust</a></div>';
+	} 
+add_action( 'login_footer', 'set_custom_login_footer' );
+
+function wpse_lost_password_redirect() {
+
+	// Check if have submitted
+	$confirm = ( isset($_GET['action'] ) && $_GET['action'] == resetpass );
+
+	if( $confirm ) {
+		wp_redirect( home_url() );
+		exit;
+	}
+}
+add_action('login_headerurl', 'wpse_lost_password_redirect');
+
+add_action( 'woocommerce_review_order_after_submit', 'checkout_reset_button', 10 );
+function checkout_reset_button(){
+	echo '<a class="button button__clear" href="?cancel=1"><i class="fas fa-trash-alt"></i>'.__("Clear All Items", "woocommerce").'</a>';
+}
+
+add_action( 'template_redirect', 'checkout_reset_cart' );
+function checkout_reset_cart() {
+	if( ! is_admin() && isset($_GET['cancel']) ) {
+		WC()->cart->empty_cart();
+		wp_redirect( get_permalink( wc_get_page_id( 'cart' ) ) );
+		exit();
+	}
+}
+
+
+
+
+
+
+
+
+function user_extra_meta_fields(){
+	
+	 return array(
+	   'plan_expiry_date' => __( 'Plan Expiry Date', 'swindonedu'),
+	 ); 
+	
+	} 
+	
+	function add_contact_methods( $contactmethods ) {
+		 $contactmethods = array_merge( $contactmethods, user_extra_meta_fields());
+		 return $contactmethods;
+	}
+	
+	add_filter('user_contactmethods','add_contact_methods',10,1);
+	
+	add_action('woocommerce_after_order_notes', 'my_custom_checkout_field');
+	
+	function my_custom_checkout_field( $checkout ) {
+	
+	  foreach( user_extra_meta_fields() as $name => $label) {
+		 $value = '';     
+		 if( is_user_logged_in() )
+		 $value = get_user_meta( get_current_user_id(), $name, true );
+	
+		  woocommerce_form_field( $name, array(
+				'type'          => 'date',
+				'class'         => array('plan-expiry-date'),
+				'label'         => $label,
+				), $value );
+	
+		  }
+	}
+	
+	add_action( 'woocommerce_checkout_process', 'user_fields_woocommerce_checkout_process' );
+	
+	function user_fields_woocommerce_checkout_process(){
+	
+	  if( is_user_logged_in() )
+	  add_action('woocommerce_checkout_update_user_meta', 'my_custom_checkout_field_update_user_meta' );
+	  else 
+	  add_action( 'woocommerce_created_customer',  'my_custom_checkout_field_update_user_meta' );
+	}
+
+	function my_custom_checkout_field_update_user_meta( $user_id ) {
+	
+		foreach( array_keys( user_extra_meta_fields() ) as $meta_name  ){
+		  if( isset( $_POST[$meta_name] ) ){
+			 $meta_value = $_POST[$meta_name] ? esc_attr($_POST[$meta_name]) : '';                                                    
+			 update_user_meta( $user_id,  $meta_name, $meta_value );  
+		  }
+	
+		}
+	}
+
+
+function expired_membership() {
+global $current_user; 
+get_currentuserinfo();
+$now = new DateTime();
+$now = $now->format('Y/m/d');
+$thisuser = new WP_User($current_user->ID);
+if ( $current_user ) {
+	
+	$current_expiry_date = get_user_meta( $current_user->ID, 'plan_expiry_date' , true );
+	$time = strtotime($current_expiry_date);
+	$newformat = date('Y/m/d',$time);
+
+	if($newformat < $now) {
+		$thisuser->remove_role( 'gp_training_membership' );
+		$thisuser->remove_role( 'gp_training_membership' );
+		$thisuser->add_role( 'customer' );
+	} else {
+		//Do nothing
+	}
+}
+
+}
+add_action('woocommerce_before_checkout_billing_form', 'expired_membership', 10, 2);
+
+add_action('woocommerce_email_header', 'add_to_email');
+function add_to_email() {
+	get_template_part ('inc/img/set-logo-email');
+}
+
+add_action('woocommerce_after_checkout_billing_form', 'not_signed_in');
+function not_signed_in() {
+	if ( ! is_user_logged_in() ) {?>
+	<section class="new-user-notice">
+		<i class="fas fa-info-circle"></i>
+		<div>
+			<p>An account will be created for you automatically.  A password will be generated and emailed to you.</p>
+			<p>If you already have an account <a href="" class="inline-link trigger-login">Log In Here</a></p>
+		</div>
+	</section>
+	<?php }
 }

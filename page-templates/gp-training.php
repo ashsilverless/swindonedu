@@ -6,19 +6,117 @@
  */
 get_header();?>
 
-<div class="container content">
+<?php 
+$today = date('Ymd');
+$args = array(
+	'post_type' => 'course_archive',
+	'posts_per_page' => -1,
+	'relation' => 'AND',
+	'tax_query' => array(
+		array(
+			'taxonomy' => 'type',
+			'field'    => 'slug',
+			'terms'    => array('gp-training') 
+		)
+	),
+	//Query checks that returned CPT is in the past
+	'meta_query' => array(
+		array(
+			'key' => 'delivered_on',
+			'value' => $today,
+			'type' => 'DATE',
+			'compare' => '<='
+		)
+	),
+	'meta_key' => 'delivered_on',
+	'orderby' => 'meta_value_num',
+	'order' => 'DESC',
+);
+$loop = new WP_Query( $args );?>
+
+<div class="container grid-gap content">
 	<div class="main-content">
-		<?php if ( have_posts() ) : 
-			 while ( have_posts() ) : the_post(); 
-				 the_content();
-			 endwhile; 
-		endif;?> 
-		<?php $the_stuff = 'STUFF FOR STANDARD MEMBER';?>
 		<?php
-		echo do_shortcode(' [membership_protected_content plan_id="18"]' .$the_stuff. '[/membership_protected_content]');?>
+		$user = wp_get_current_user();
+		if ( in_array( 'gp_training_membership', (array) $user->roles ) ) {?>
+			<section>
+				<h2 class="heading heading__5"><?php the_field('sub_heading');?></h2>
+				<?php the_field('lead_copy');?>
+			</section>
+			<section class="filter-target">
+				<?php if ( $loop->have_posts() ) {
+				while ( $loop->have_posts() ) : $loop->the_post();?>
+				
+				<?php get_template_part ('template-parts/course-archive-card');?>
+				
+				<?php endwhile;
+				} else {
+					echo __( 'No courses found' );
+				}
+				wp_reset_postdata();?>
+				
+			</section>
+		<?php } elseif ( in_array( 'gp_membership', (array) $user->roles ) ){?>
+			<section>
+				<h2 class="heading heading__5"><?php the_field('member_heading');?></h2>
+				<?php the_field('member_copy');?>
+			</section>
+			<section>
+				<a href="<?php the_field('member_button_target');?>" class="button"><?php the_field('member_button_text');?><i class="fas fa-chevron-right"></i></a>
+			</section>
+		<?php } else {?>
+		<section>
+			<h2 class="heading heading__5"><?php the_field('non-member_heading');?></h2>
+			<?php the_field('non-member_copy');?>
+		</section>
+			<section>
+				<?php get_template_part ('template-parts/join-cta');?>
+			</section>
+		<?php }	?>
+		<section>
+			<div class="general-links">
+			<?php if( have_rows('links') ):
+			while( have_rows('links') ): the_row(); ?>
+			<div class="general-links__item">
+				<h3 class="heading heading__6"><?php the_sub_field('title');?></h3>
+				<?php the_sub_field('description');?>
+				<a href="<?php the_sub_field('link');?>" target="_blank"><i class="fas fa-chevron-right"></i></a>
+			</div>
+			<?php endwhile; endif;?>
+			</div>
+		</section>
 	</div>
 	<div class="side-content">
-		
+		<?php if ( in_array( 'gp_training_membership', (array) $user->roles ) ) {?>
+			<section>
+				<?php get_template_part ('template-parts/course-archive-filter');?>
+			</section>
+			<section>
+				<div class="dark-leader">
+					<p class="heading heading__5">Training Video Archive</p>
+					<a href="/gp-training-videos" class="button button__large">
+						Visit
+						<i class="fas fa-chevron-right"></i>
+					</a>
+				</div>
+			</section>
+			<section>
+				<div class="dark-leader">
+					<p class="heading heading__5">Forms</p>
+					<a href="/gp-training-forms" class="button button__large">
+						Visit
+						<i class="fas fa-chevron-right"></i>
+					</a>
+				</div>
+			</section>
+			<section>
+				<?php get_template_part ('template-parts/courses-sidebar');?>
+			</section>
+		<?php } else {?>
+			<section>
+				<?php get_template_part ('template-parts/courses-sidebar');?>
+			</section>
+		<?php }?>
 	</div>	
 </div>
 	

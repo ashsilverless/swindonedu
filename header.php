@@ -21,11 +21,21 @@
 <body <?php body_class('light-mode'); ?>>
 	<div class="modal-wrapper">
 		<div class="modal-wrapper__container">
-			THIS IS MODAL CONTENT
+			<p class="close"><i class="fas fa-times"></i></p>
+			<div class="login">
+				<div class="head">
+					<p>MEMBER LOGIN<a href="/membership" class="not-member">Not a Member?</a></p>
+				</div>
+				<?php wp_login_form_set(); ?>
+				<div class="reset-password">
+					<a href="http://swindon-education-trust.local/my-account/lost-password/"> <i class="fas fa-question-circle"></i> Lost your password?</a>
+				</div>
+			</div>
 		</div>
 	</div>
 	
 	<div id="page" class="site-wrapper">
+		
 		<header>
 			<div class="container">
 				<div class="logo">
@@ -34,12 +44,12 @@
 					</a>
 				</div>
 				<div class="nav nav__upper-section">
-					<?wp_nav_menu( array( 
+					<?php wp_nav_menu( array( 
 						'theme_location' => 'upper-menu'
 					) ); ?>
 				</div>
 				<div class="nav nav__lower-section">
-					<?wp_nav_menu( array( 
+					<?php wp_nav_menu( array( 
 						'theme_location' => 'lower-menu'
 					) ); ?>
 				</div>
@@ -48,7 +58,7 @@
 					if ( is_user_logged_in() ) {?>
 						<a href="/my-account">My Account</a>
 					<?php } else {?>
-						<a href="/register">Sign Up</a>
+						<a href="/membership">Join</a>
 					<?php }?>
 				</div>
 				<div class="my-account">
@@ -56,7 +66,7 @@
 					if ( is_user_logged_in() ) {?>
 						<a href="<?php echo wp_logout_url('$index.php'); ?>">Log Out</a>
 					<?php } else {?>
-						<a href="/my-account">Log In</a>
+						<a class="trigger-login">Log In</a>
 					<?php }?>
 					
 				</div>	
@@ -76,6 +86,8 @@
 							} else {
 								the_title();
 							} ?>
+						</h1>
 					</div>
 				</div>
 			</div>
+			

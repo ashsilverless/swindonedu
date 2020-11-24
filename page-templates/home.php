@@ -5,20 +5,19 @@
  * @package swindonedu
  */
 get_header();?>
-<div class="container content">
+<div class="container grid-gap content">
     <div class="main-content">
-        <?php
-        if ( have_posts() ) : 
-        while ( have_posts() ) : the_post(); 
-        //the_content();
-        echo "<p>This is the Home template</p>";
-        endwhile; 
-        endif; 
-        ?>       
+        <section>
+            <h2 class="heading heading__5"><?php the_field('sub_heading');?></h2>
+            <?php the_field('lead_copy');?>
+        </section>
+        <section>
+            <?php get_template_part ('template-parts/join-cta');?>
+        </section>
     </div>
     
     <div class="sidebar-content">
-        SIDE
+        <?php get_template_part ('template-parts/courses-sidebar');?>
     </div>
     
 </div>

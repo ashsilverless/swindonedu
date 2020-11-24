@@ -5,7 +5,7 @@
  * @package swindonedu
  */
 ?>
-<div class="container content">
+<div class="container grid-gap content">
     <div class="main-content">
         <?php if ( have_posts() ) : 
              while ( have_posts() ) : the_post(); 
@@ -15,8 +15,12 @@
     </div>
     
     <div class="sidebar-content">
-        <?php echo do_shortcode('[loginform]');?>
-        <a href="http://swindon-education-trust.local/wp-login.php?action=logout">Logout</a>       
+        <section>
+            <?php get_template_part ('template-parts/courses-sidebar');?>
+        </section>
+        <section>
+            <?php get_template_part ('template-parts/join-cta');?>
+        </section>  
     </div>
     
 </div>

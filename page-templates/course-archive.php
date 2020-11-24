@@ -6,24 +6,46 @@
  */
 get_header();?>
 
-<?php $today = date('Ymd');
+<?php 
+$today = date('Ymd');
+$parentType = 'standard';
 $args = array(
 	'post_type' => 'course_archive',
-	/*'meta_query' => array(
+	'posts_per_page' => -1,
+	'relation' => 'AND',
+	'tax_query' => array(
 		array(
-			'key' => 'date_of_course',
-			'value' => $today,
-			'type' => 'DATE',
-			'compare' => '>='
+			'taxonomy' => 'type',
+			'field'    => 'slug',
+			'terms'    => array($parentType) 
 		)
 	),
-	'meta_key' => 'date_of_course',
+	//Query checks that returned CPT is in the past
+	'meta_query' => array(
+		array(
+			'key' => 'delivered_on',
+			'value' => $today,
+			'type' => 'DATE',
+			'compare' => '<='
+		)
+	),
+	'meta_key' => 'delivered_on',
 	'orderby' => 'meta_value_num',
-	'order' => 'ASC',*/
+	'order' => 'DESC',
 );
 $loop = new WP_Query( $args );?>
 
+<?php 
+global $user_login, $current_user;
+get_currentuserinfo();
+$user_info = get_userdata($current_user->ID);
+$roles = array (
+	'gp_training_membership',
+	'gp_membership',
+);?>
+
 <div class="container grid-gap content">
+	
 	<div class="main-content">
 		<section>
 			<div class="lead-copy">
@@ -31,50 +53,55 @@ $loop = new WP_Query( $args );?>
 				<?php the_field('lead_copy');?>
 			</div>
 		</section>
-		<?php
-		$user = wp_get_current_user();
-		if ( 
-			in_array( 'gp_role', (array) $user->roles )|| 
-			in_array( 'standard_role', (array) $user->roles ) 
-		) {?>
-			
+		<section class="filter-target">	
 			<?php if ( $loop->have_posts() ) {
-		while ( $loop->have_posts() ) : $loop->the_post();?>
+			while ( $loop->have_posts() ) : $loop->the_post();?>
 		
-		<div class="course-item mix">
-			<div class="summary">
-				<?php if( have_rows('course_details') ):
-				while( have_rows('course_details') ): the_row(); ?>
-					<p><?php the_sub_field('course_date');?></p>
-					<h2 class="heading heading__5"><?php the_title();?></h2>
-					<p><?php the_sub_field('lecturer');?></p>
-				<?php endwhile; endif;?>
-			</div>
-			<a href="<?php the_permalink();?>" class="book">
-				<span>
-					<i class="fas fa-chevron-right"></i>
-					See More	
-				</span>
-			</a>
-		</div>		
+				<?php get_template_part ('template-parts/course-archive-card');?>
 
-		<?php endwhile;
+			<?php endwhile;
 			} else {
 				echo __( 'No products found' );
 			}
-		wp_reset_postdata();?>
-		<?php } else {?>
-			<section>
-				<h3 class="heading heading__5">This content is reserved for members</h3>
-				<p>Already a member?  <span class="trigger-signin">Sign in here</span></p>
-			</section>
+			wp_reset_postdata();?>
+		</section>
+		<?php if (array_intersect( $roles, $user_info->roles)) {} else {?>
+		<section>
 			<?php get_template_part ('template-parts/join-cta');?>
-		<?php }
-		?>
+		</section>
+		<?php }?>
 	</div>
 	<div class="side-content">
-		<?php get_template_part ('template-parts/courses-sidebar');?>
+		<section>
+			<?php get_template_part ('template-parts/course-archive-filter');?>
+		</section>
+		<section>
+			<div class="dark-leader">
+				<p class="heading heading__5">Video Archive</p>
+				<?php 
+				$user = wp_get_current_user();
+				$allowed_roles = array('gp_membership', 'gp_training_membership');
+				if( array_intersect($allowed_roles, $user->roles ) ) {?>
+				<a href="/course-archive-video" class="button button__large">
+					Visit
+					<i class="fas fa-chevron-right"></i>
+				</a>
+				<?php } else { ?>
+				<a class="button button__large disabled">
+					Visit
+					<i class="fas fa-chevron-right"></i>
+				</a>
+				<span>
+					<i class="fas fa-info-circle"></i> 
+					This is a members-only facility.  For membership details, <a href="/membership" class="inline-link">please click here</a>
+				</span> 
+				<?php } ?>
+			</div>
+		</section>
+		<section>
+			<?php get_template_part ('template-parts/courses-sidebar');?>
+		</section>
 	</div>	
 </div>
-	
+
 <?php get_footer();?>

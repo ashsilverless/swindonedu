@@ -56,17 +56,18 @@ footer {
 		margin: 0;
 	}
 	.vector-wrapper {
+		position: absolute;
 		top: initial;
-		bottom: 0;
-		left: -2rem;
+		bottom: 1rem;
+		left: -9%;
 		height: 200%;
 		z-index: -1;
 		svg {
 			top: initial;
 			right: initial;
 			bottom: 0;
-			left: 0;
-			transform: scale(-1, -1);
+			left: 0; 
+			transform: scale(-1, 1);
 		}
 	}
 }

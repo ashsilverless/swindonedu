@@ -17,7 +17,7 @@
 		</div>
 		
 		<div  class="menu-section">
-			<?wp_nav_menu( array( 
+			<?php wp_nav_menu( array( 
 				'theme_location' => 'footer-menu'
 			) ); ?>
 			

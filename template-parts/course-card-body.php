@@ -7,7 +7,6 @@ if ($current_tags){
 		echo strtolower($tag_title). ' ';
 	}	
 }?>">
-
 	<div class="summary">
 		<p><?php the_field('date_of_course');?></p>
 		<h2 class="heading heading__5"><?php the_title();?></h2>
@@ -21,7 +20,7 @@ if ($current_tags){
 		</span>
 	</a>
 	<div class="description">
-		<?php the_content();?>
+		<?php the_field('synopsis');?>
 		<p class="read-less"><i class="fas fa-times"></i></p>
 	</div>
 </div>

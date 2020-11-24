@@ -10,12 +10,7 @@
   &.grid-gap {
     grid-gap: 3rem;
   }
+  &.reverse {
+    grid-template-columns:$reverse-page-split;  
   }
-
-.main-content {
-  
-}
-
-.side-content {
-  
 }

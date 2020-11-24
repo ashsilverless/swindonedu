@@ -94,28 +94,70 @@ if ( post_password_required() ) {
 			 * @hooked WC_Structured_Data::generate_product_data() - 60
 			 */
 			//do_action( 'woocommerce_single_product_summary' );?>
-			<div class="product-meta">
-				<div class="product-meta__item">
-					<h4 class="heading heading__6">Lecturer</h4>
-					<p><?php the_field('lecturer');?></p>
+			<?php if( has_term (26, 'product_cat')) {?>
+				<div class="product-meta">
+					<div class="product-meta__item">
+						<h4 class="heading heading__6">Lecturer</h4>
+						<p><?php the_field('lecturer');?></p>
+					</div>
+					<div class="product-meta__item">
+						<h4 class="heading heading__6">Date & Time</h4>
+						<p><?php the_field('course_time_from'); ?><?php the_field('course_time_to');?>, <?php the_field('course_date');?></p>
+					</div>			
+					<?php if (get_field('postcode')) {?>
+						<div class="product-meta__item physical-address">
+							<h4 class="heading heading__6">Location</h4>
+							<p><?php the_field('address');?> <?php the_field('postcode');?></p>
+							<a href="https://www.google.co.uk/maps/search/<?php the_field('postcode');?>" class="location" target="_blank"><i class="fas fa-map-marker-alt"></i>View Location on Google Maps<i class="fas fa-chevron-right"></i></a>
+						</div>
+					<?php }?>
+					<?php if (get_field('additional_notes')) {?>
+					<div class="product-meta__item">
+						<h4 class="heading heading__6">Additional Notes</h4>
+						<?php the_field('additional_notes');?>
+					</div>
+					<?php }?>
 				</div>
-				<div class="product-meta__item">
-					<h4 class="heading heading__6">Date & Time</h4>
-					<p><?php the_field('course_time_from'); ?><?php the_field('course_time_to');?>, <?php the_field('course_date');?></p>
-				</div>				
-				<div class="product-meta__item">
-					<h4 class="heading heading__6">Location</h4>
-					<p><?php the_field('address');?> <?php the_field('postcode');?></p>
-					<a href="https://www.google.co.uk/maps/search/<?php the_field('postcode');?>" class="location" target="_blank"><i class="fas fa-map-marker-alt"></i>View Location on Google Maps<i class="fas fa-chevron-right"></i></a>
+				<?php if (get_field('synopsis')) {?>
+				<div class="product-meta__item longform">
+				<h4 class="heading heading__6">Course Synopsis</h4>
+					<?php the_field('synopsis');?>
 				</div>
-				<div class="product-meta__item">
-					<h4 class="heading heading__6">Additional Notes</h4>
-					<?php the_field('additional_notes');?>
+				<?php }?>
+				
+				<?php if (get_field('learning_objectives')) {?>
+				<div class="product-meta__item longform">
+					<h4 class="heading heading__6">Learning Objectives</h4>
+					<ul>
+					<?php if( have_rows('learning_objectives') ):
+					$i = 1;
+					while( have_rows('learning_objectives') ): the_row(); ?>
+						<li><p><span><?=$i;?></span><?php the_sub_field('objective');?></p></li>
+					<?php $i++; endwhile; endif;?>
+					</ul>
 				</div>
-			</div>
+				<?php }?>
+				
+				<?php if (get_field('curriculum_statement')) {?>
+				<div class="product-meta__item longform ">
+					<h4 class="heading heading__6">Curriculum Statement</h4>
+					<ul>
+					<?php if( have_rows('curriculum_statement') ):
+					while( have_rows('curriculum_statement') ): the_row(); ?>
+						<li class="large-index"><p><span><?php the_sub_field('number');?></span><?php the_sub_field('statement');?></p></li>
+					<?php endwhile; endif;?>
+					</ul>
+				</div>
+				<?php }?>
+
+			<?php } else {?>
+				<?php the_field('membership_detail');?>				
+			<?php }?>
 			
-			<h4 class="heading heading__6">Course Synopsis</h4>
-			<?php the_content();?>
+			
+			
+			
+			
 			
 			<?php
 			/**
@@ -131,12 +173,20 @@ if ( post_password_required() ) {
 
 		<div>
 			<div class="sticky under-book-button">
+				
 				<div class="product-meta cost">
+					<?php if( has_term (26, 'product_cat')) {?>
 					<div class="product-meta__item">
 						<h4 class="heading heading__6">Cost</h4>
 						<p>Non-members<span> <?php echo $product->get_price_html(); ?></span></p>
 						<p>Members<span> £FREE</span></p>
 					</div>
+					<?php }else{?>
+						<div class="product-meta__item membership">
+							<h4 class="heading heading__6">Cost</h4>
+							<p>Annual Membership<span> <?php echo $product->get_price_html(); ?></span></p>
+						</div>
+					<?php }?>
 				</div>
 				<?php get_template_part ('template-parts/join-cta-sidebar');?>
 			</div>
@@ -144,11 +194,17 @@ if ( post_password_required() ) {
 	</div>
 </div>
 
+
 <?php do_action( 'woocommerce_after_single_product' ); ?>
 <div class="dark-section">
 	<div class="container">
 		<div class="main-content">
+			
+			<?php if( has_term (26, 'product_cat')) {?>
 			<h4 class="heading heading__5">OTHER COURSES</h4>
+			<?php } else {?>
+			<h4 class="heading heading__5">COURSES FREE TO ALL MEMBERS</h4>
+			<?php }?>			
 			<div class="course-wrapper">
 				<?php
 					$today = date('Ymd');

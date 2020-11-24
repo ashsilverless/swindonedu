@@ -36,21 +36,6 @@ $height: (0, 25, 50, 75, 100); // Amount string.
     }
 }
 
-.h-auto {
-    height:auto; /*Required for CSS Grid elements*/
-    padding-bottom: 3em;
-}
-
-/* Typography */
-
-$weight: (100, 200, 300, 400, 500, 600, 700, 800, 900); // Amount string.
-
-@each $amount in $weight {
-    .font#{$amount} {
-        font-weight: #{$amount};
-    }
-}
-
 /* Animation */
 
 @-webkit-keyframes pulse {
@@ -62,6 +47,15 @@ $weight: (100, 200, 300, 400, 500, 600, 700, 800, 900); // Amount string.
     }
     100% {
        opacity: 1.0;
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(359deg);
     }
 }
 

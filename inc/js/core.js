@@ -34,18 +34,18 @@ jQuery(document).ready(function($) {
 	});
 
 	//Random class change on divs in hero
-	var vectorHexOutlines = document.getElementsByClassName('hex-outline');
+	var vectorHexOutlines = document.getElementsByClassName('hex-item');
 	setInterval(changeHexGlow, 500);
 	function changeHexGlow() {
 		var randomNumber = Math.floor(Math.random() * vectorHexOutlines.length);
-		var selectedHex = '#hex path:nth-of-type(' + randomNumber + ')';
+		var selectedHex = '.hex-item:nth-of-type(' + randomNumber + ')';
 		$(selectedHex).addClass('hex-glow');
 	}
-
+	
 	setInterval(changeHexDim, 500);
 	function changeHexDim() {
 		var randomNumberOff = Math.floor(Math.random() * vectorHexOutlines.length);
-		var selectedHexDim = '#hex path:nth-of-type(' + randomNumberOff + ')';
+		var selectedHexDim = '.hex-item:nth-of-type(' + randomNumberOff + ')';
 		$(selectedHexDim).removeClass('hex-glow');
 	}
 
@@ -83,8 +83,67 @@ jQuery(document).ready(function($) {
 			.siblings('.toggle__item .body')
 			.slideToggle();
 	});
-	/*
 
+	$('.set-form input').on('input', function() {
+		if ($(this).val()) {
+			console.log('I HEAR');
+			$(this)
+				.closest('.form-field')
+				.addClass('contains-content');
+		} else {
+			$(this)
+				.closest('.form-field')
+				.removeClass('contains-content');
+		}
+	});
+	$('.trigger-login').click(function(e) {
+		e.preventDefault();
+		$('.modal-wrapper').addClass('visible');
+	});
+	$('.modal-wrapper .close').click(function(e) {
+		e.preventDefault();
+		$('.modal-wrapper').removeClass('visible');
+	});
+
+	$('.login-submit').click(function() {
+		$(this).addClass('clicked');
+	});
+
+	$('#sortbox').on('input', function(e) {
+		e.preventDefault();
+		var desiredOption = $(this).val();
+		if (desiredOption == 'desc') {
+			$(this).focus();
+			var items = $('.course-archive-item');
+			items.sort(function(b, a) {
+				return +$(a).data('datestamp') - +$(b).data('datestamp');
+			});
+			items.appendTo('.filter-target');
+		}
+		if (desiredOption == 'asc') {
+			$(this).focus();
+			var items = $('.course-archive-item');
+			items.sort(function(a, b) {
+				return +$(a).data('datestamp') - +$(b).data('datestamp');
+			});
+			items.appendTo('.filter-target');
+		}
+	});
+	$('.checkboxes input[type="checkbox"]').click(function() {
+		$(this)
+			.closest('.checkboxes')
+			.find('input[type="checkbox"]')
+			.prop('checked', false);
+		$(this)
+			.closest('.checkboxes')
+			.find('p')
+			.removeClass('selected');
+		$(this).prop('checked', true);
+		$(this)
+			.closest('p')
+			.addClass('selected');
+	});
+	/*
   $(".expanding-section__trigger").click(function (e) {
     e.preventDefault();
     $(this).closest('.expanding-section').addClass('open');
@@ -104,4 +163,14 @@ jQuery(document).ready(function($) {
 	$(function() {
 		$('.filter-target').mixItUp();
 	});
+	
+	$(document).ready( function() {
+		if ($('form.checkout').hasClass('product-type-membership')){
+			var dt = new Date();
+			year  = dt.getFullYear() + 6;
+			month = (dt.getMonth() + 1).toString().padStart(2, "0");
+			day   = (dt.getDate() - 1).toString().padStart(2, "0");
+			$('#plan_expiry_date').val(year + '-' + month + '-' + day);	
+		}
+	});​
 }); //Don't remove ---- end of jQuery wrapper
