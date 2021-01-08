@@ -91,7 +91,7 @@ foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
 			  $cat_check = true;?>
 			 
 			<section class="checkboxes">
-				<label>Role</label>
+				<label>Confirm Your Role</label>
 				<p>
 					<label for="gp_partner">
 						<input type="checkbox" id="gp_partner" name="gp_partner" value="1"<?php echo $partner_checked; ?>>
@@ -99,27 +99,45 @@ foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
 					</label>
 				</p>
 				<p>
-					<label for="salaried_gp">
-						<input type="checkbox" id="salaried_gp" name="salaried_gp" value="1"<?php echo $salaried_checked; ?>>
-					 <span>Salaried GP</span>
+					<label for="sessional_gp">
+						<input type="checkbox" id="sessional_gp" name="sessional_gp" value="1"<?php echo $sessional_checked; ?>>
+					 <span>Sessional/Locum/Retired GP</span>
 					</label>
 				</p>
 				<p>
-					<label for="locum_gp">
-						<input type="checkbox" id="locum_gp" name="locum_gp" value="1"<?php echo $locum_checked; ?>>
-					 <span>Locum GP</span>
+					<label for="whole_practice">
+						<input type="checkbox" id="whole_practice" name="whole_practice" value="1"<?php echo $whole_checked; ?>>
+					 <span>Whole Practice</span>
 					</label>
 				</p>
 				<p>
-					<label for="new_gp">
-						<input type="checkbox" id="new_gp" name="new_gp" value="1"<?php echo $new_checked; ?>>
-					 <span>Newly Qualified GP (within 5 years of qualifying)</span>
+					<label for="practice_nurse">
+						<input type="checkbox" id="practice_nurse" name="practice_nurse" value="1"<?php echo $nurse_checked; ?>>
+					 <span>Practice Nurse</span>
 					</label>
 				</p>
 				<p>
-					<label for="practice_manager">
-						<input type="checkbox" id="practice_manager" name="practice_manager" value="1"<?php echo $practice_checked; ?>>
-					 <span>Practice Manager</span>
+					<label for="paramedic">
+						<input type="checkbox" id="paramedic" name="paramedic" value="1"<?php echo $paramedic_checked; ?>>
+					 <span>Paramedic</span>
+					</label>
+				</p>
+				<p>
+					<label for="pharmacist">
+						<input type="checkbox" id="pharmacist" name="pharmacist" value="1"<?php echo $pharmacist_checked; ?>>
+					 <span>Pharmacist</span>
+					</label>
+				</p>
+				<p>
+					<label for="other_healthcare">
+						<input type="checkbox" id="other_healthcare" name="other_healthcare" value="1"<?php echo $other_checked; ?>>
+					 <span>Other Healthcare Professionals</span>
+					</label>
+				</p>
+				<p>
+					<label for="gp_trainee">
+						<input type="checkbox" id="gp_trainee" name="gp_trainee" value="1"<?php echo $trainee_checked; ?>>
+					 <span>GP Trainee</span>
 					</label>
 				</p>
 			  </section>

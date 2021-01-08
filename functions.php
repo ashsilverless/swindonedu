@@ -750,22 +750,43 @@ Add Product Category as ACF Filter
   add_action('edit_user_profile', 'my_user_profile_edit_action');
   add_action( 'woocommerce_before_order_notes', 'my_user_profile_edit_action');
   function my_user_profile_edit_action($user) {
+	  /*
 	$partner_checked = (isset($user->gp_partner) && $user->gp_partner) ? ' checked="checked"' : '';
 	$salaried_checked = (isset($user->salaried_gp) && $user->salaried_gp) ? ' checked="checked"' : '';
 	$locum_checked = (isset($user->locum_gp) && $user->locum_gp) ? ' checked="checked"' : '';
 	$new_checked = (isset($user->new_gp) && $user->new_gp) ? ' checked="checked"' : '';
 	$practice_checked = (isset($user->practice_manager) && $user->practice_manager) ? ' checked="checked"' : '';
+	*/
+	$partner_checked = (isset($user->gp_partner) && $user->gp_partner) ? ' checked="checked"' : '';
+	$sessional_checked = (isset($user->sessional_gp) && $user->sessional_gp) ? ' checked="checked"' : '';
+	$whole_checked = (isset($user->whole_practice) && $user->whole_practice) ? ' checked="checked"' : '';
+	$nurse_checked = (isset($user->practice_nurse) && $user->practice_nurse) ? ' checked="checked"' : '';
+	$paramedic_checked = (isset($user->paramedic) && $user->paramedic) ? ' checked="checked"' : '';
+	$pharmacist_checked = (isset($user->pharmacist) && $user->pharmacist) ? ' checked="checked"' : '';
+	$other_checked = (isset($user->other_healthcare) && $user->other_healthcare) ? ' checked="checked"' : '';
+	$trainee_checked = (isset($user->gp_trainee) && $user->gp_trainee) ? ' checked="checked"' : '';
+	
   }
   add_action('personal_options_update', 'my_user_profile_update_action');
   add_action('edit_user_profile_update', 'my_user_profile_update_action');
   add_action('woocommerce_checkout_update_user_meta', 'my_user_profile_update_action');
   add_action('woocommerce_checkout_before_customer_details', 'my_user_profile_update_action');
   function my_user_profile_update_action($user_id) {
+	  /*
 	update_user_meta($user_id, 'gp_partner', isset($_POST['gp_partner']));
 	update_user_meta($user_id, 'salaried_gp', isset($_POST['salaried_gp']));
 	update_user_meta($user_id, 'locum_gp', isset($_POST['locum_gp']));
 	update_user_meta($user_id, 'new_gp', isset($_POST['new_gp']));
 	update_user_meta($user_id, 'practice_manager', isset($_POST['practice_manager']));
+	*/
+	update_user_meta($user_id, 'gp_partner', isset($_POST['gp_partner']));
+	update_user_meta($user_id, 'sessional_gp', isset($_POST['sessional_gp']));
+	update_user_meta($user_id, 'whole_practice', isset($_POST['whole_practice']));
+	update_user_meta($user_id, 'practice_nurse', isset($_POST['practice_nurse']));
+	update_user_meta($user_id, 'paramedic', isset($_POST['paramedic']));
+	update_user_meta($user_id, 'pharmacist', isset($_POST['pharmacist']));
+	update_user_meta($user_id, 'other_healthcare', isset($_POST['other_healthcare']));
+	update_user_meta($user_id, 'gp_trainee', isset($_POST['gp_trainee']));
   }
 
 /**

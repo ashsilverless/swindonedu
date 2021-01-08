@@ -105,6 +105,7 @@
 		border-left: 2rem solid $color_brand_green;
 		padding: 2rem 2rem 1rem 5rem;
 		p:first-of-type {
+			display: block;
 			margin-bottom: .5rem;
 			font-size: $font_size * .9px;
 		}
@@ -113,6 +114,19 @@
 			padding-bottom: 1rem;
 			border-bottom: 2px dashed $color_brand_green;
 		}
+
+		.lecturer-wrapper {
+			p {
+				display: inline-block;
+				margin-right: .5rem;
+				padding-right: .5rem;
+				border-right: 1px solid $color_brand_green;
+				&:last-of-type {
+					border:none;
+				}
+			}	
+		}
+		
 	}
 	a.book {
 		grid-column: 2/3;
@@ -404,6 +418,18 @@
 			i:nth-of-type(2) {
 				margin-left: 1rem;
 			}
+		}
+		.lecturer-wrapper {
+			margin-top: 1rem;
+			p {
+				display: inline-block;
+				margin-right: .5rem;
+				padding-right: .5rem;
+				border-right: 1px solid $color_brand_green;
+				&:last-of-type {
+					border:none;
+				}
+			}	
 		}
 	}
 	&.cost {
@@ -796,6 +822,7 @@ ul.features {
 .general-links {
 	&__item {
 		display: grid;
+		grid-template-columns: auto 5rem;
 		grid-column-gap: 2rem;
 		margin-bottom: 2rem;
 		.heading {
@@ -940,3 +967,89 @@ ul.features {
 		}
 	}
 }
+
+.contact {
+	.main-content {
+		display: grid;
+		grid-template-columns: 3fr 7fr;
+		grid-column-gap: 2rem;
+	}
+}
+
+.details {
+	&__item {
+		margin-bottom: 3rem;
+		>div {
+			position: relative;
+		}
+		.heading {
+			margin-bottom: 1rem;
+		}
+		i {
+			position: absolute;
+			left: -2rem;
+			line-height: 1.5;
+			color: $color_brand_blue;
+		}
+		p {
+			margin-bottom: .5rem;
+		}
+	}
+}
+
+
+.form-field {
+	position: relative;
+	transition: margin 0.3s ease;
+	margin:0 0 1rem;
+	padding:0;
+	border: none;
+	border-radius: .25rem;
+	background: white;
+	label {
+		position: absolute;
+		z-index: 5;
+		transition: top 0.5s ease;
+		top: 0.75rem;
+		left: 1rem;
+		overflow: visible;
+		width: calc(100% - 1rem);
+		height: auto;
+		font-size: 1rem;
+		font-weight: 200;
+		line-height: 1.5rem;
+	}
+	input, textarea {
+		position: relative;
+		z-index: 10;
+		display: block;
+		border:none;
+		width: calc(100% - 2rem);
+		padding:1rem 1rem;
+		font-size: 1rem;
+		font-weight: 200;
+		background:transparent;
+	}
+	:focus {
+		outline:none;
+	}
+	&.contains-content {
+		margin-top:2rem;
+		label {
+			top:-1.5rem;
+			//color: #c3c3c3;
+		}
+	}
+
+}
+input[type="submit"] {
+	display: block;
+	width: 100%;
+	padding:1rem 2rem;
+	border:none;
+	border-radius: .25rem;
+	text-align: left;
+	text-transform: uppercase;
+	background: $color_brand_blue;
+	color: white;
+} 

@@ -26,7 +26,6 @@ get_header();?>
 					</div>
 				<?php endwhile; endif;?>
 			</div>
-			
 		</section>
 	</div>
 	<div class="side-content">

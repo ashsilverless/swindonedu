@@ -160,6 +160,18 @@ jQuery(document).ready(function($) {
 
   */
 
+	$('.wpcf7-form-control').on('input', function() {
+		if ($(this).val()) {
+			$(this)
+				.parents('.form-field')
+				.addClass('contains-content');
+		} else {
+			$(this)
+				.parents('.form-field')
+				.removeClass('contains-content');
+		}
+	});
+
 	$(function() {
 		$('.filter-target').mixItUp();
 	});

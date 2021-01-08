@@ -97,8 +97,25 @@ if ( post_password_required() ) {
 			<?php if( has_term (26, 'product_cat')) {?>
 				<div class="product-meta">
 					<div class="product-meta__item">
-						<h4 class="heading heading__6">Lecturer</h4>
-						<p><?php the_field('lecturer');?></p>
+						<div class="lecturer-wrapper">
+							<?php if( have_rows('lecturers') ):?>
+							
+							<h4 class="heading heading__6">
+								<?php
+								$lecturers = get_field('lecturers');
+								$lecturerCount = count($lecturers);
+									if ($lecturerCount <= 1){
+										echo 'Lecturer';
+									} else {
+										echo 'Lecturers';
+									};?>
+								</h4>
+							
+							
+							<?php while( have_rows('lecturers') ): the_row(); ?>
+								<p><?php the_sub_field('lecturer');?></p>
+							<?php endwhile; endif;?>
+						</div>
 					</div>
 					<div class="product-meta__item">
 						<h4 class="heading heading__6">Date & Time</h4>

@@ -10,7 +10,12 @@ if ($current_tags){
 	<div class="summary">
 		<p><?php the_field('date_of_course');?></p>
 		<h2 class="heading heading__5"><?php the_title();?></h2>
-		<p><?php the_field('lecturer');?></p>
+		<div class="lecturer-wrapper">
+			<?php if( have_rows('lecturers') ):
+			while( have_rows('lecturers') ): the_row(); ?>
+				<p><?php the_sub_field('lecturer');?></p>
+			<?php endwhile; endif;?>
+		</div>
 		<p class="read-more">Read More<i class="fas fa-chevron-right"></i></p>
 	</div>
 	<a href="<?php the_permalink();?>" class="book">

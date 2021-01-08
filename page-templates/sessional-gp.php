@@ -33,9 +33,25 @@ get_header();?>
 			</div>
 		</section>
 		<section>
-			<div class="form">
-				FORM
+			<h2 class="heading heading__5">Team</h2>
+			<div class="team-members">
+				<?php if( have_rows('team', '57') ):
+				while( have_rows('team', '57') ): the_row();
+				$teamImage = get_sub_field('picture'); ?>
+					<div class="team-members__item">
+						<img src="<?php echo $teamImage['url'];?>"/>
+						<h4 class="heading heading__6"><?php the_sub_field('name');?></h4>
+						<p class="position"><?php the_sub_field('position');?></p>
+						<p><?php the_sub_field('bio');?></p>
+					</div>
+				<?php endwhile; endif;?>
 			</div>
+		</section>
+		<section>
+			<h3 class="heading heading__4">Contact Us</h2>
+			<div class="form">
+				<?php echo do_Shortcode('[contact-form-7 id="526" title="Contact General"]');?> 
+			</div>	
 		</section>
 	</div>
 	<div class="side-content">
