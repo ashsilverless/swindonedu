@@ -317,7 +317,7 @@ function change_role_on_purchase( $order_id ) {
 	$order = wc_get_order( $order_id );
 	$items = $order->get_items();
 	
-	$checkifmember = array( 21 );//This is checking to see if the user has purchased a GP Membership
+	$checkifmember = array( 21, 531, 548 );//This is checking to see if the user has purchased a GP Membership
 	$checkifgptraining = array( 113 );//This is checking to see if the user has purchased a GP Training Membership
 	
 	foreach ( $items as $item ) {
@@ -854,13 +854,6 @@ function checkout_reset_cart() {
 	}
 }
 
-
-
-
-
-
-
-
 function user_extra_meta_fields(){
 	
 	 return array(
@@ -957,3 +950,33 @@ function not_signed_in() {
 	</section>
 	<?php }
 }
+
+add_filter('manage_edit-shop_order_columns', 'misha_order_items_column' );
+function misha_order_items_column( $order_columns ) {
+	$order_columns['order_products'] = "Purchased products";
+	return $order_columns;
+}
+ 
+add_action( 'manage_shop_order_posts_custom_column' , 'misha_order_items_column_cnt' );
+function misha_order_items_column_cnt( $colname ) {
+	global $the_order; // the global order object
+ 
+	 if( $colname == 'order_products' ) {
+ 
+		// get items from the order global object
+		$order_items = $the_order->get_items();
+ 
+		if ( !is_wp_error( $order_items ) ) {
+			foreach( $order_items as $order_item ) {
+ 
+				 echo $order_item['quantity'] .' × <a href="' . admin_url('post.php?post=' . $order_item['product_id'] . '&action=edit' ) . '">'. $order_item['name'] .'</a><br />';
+				// you can also use $order_item->variation_id parameter
+				// by the way, $order_item['name'] will display variation name too
+ 
+			}
+		}
+ 
+	}
+ 
+}
+
