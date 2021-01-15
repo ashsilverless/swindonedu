@@ -317,7 +317,7 @@ function change_role_on_purchase( $order_id ) {
 	$order = wc_get_order( $order_id );
 	$items = $order->get_items();
 	
-	$checkifmember = array( 21, 531, 548 );//This is checking to see if the user has purchased a GP Membership
+	$checkifmember = array( 616, 617 ,618, 619, 620, 621, 622 );//This is checking to see if the user has purchased a GP Membership
 	$checkifgptraining = array( 113 );//This is checking to see if the user has purchased a GP Training Membership
 	
 	foreach ( $items as $item ) {
