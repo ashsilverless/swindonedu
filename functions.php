@@ -323,7 +323,7 @@ function change_role_on_purchase( $order_id ) {
 	foreach ( $items as $item ) {
 		if ( $order->user_id > 0 && in_array( $item['product_id'], $checkifmember ) ) {
 			$user = new WP_User( $order->user_id );
-			add_role(  'gp_membership', 'GP Membership', array( 'read' => true, 'level_0' => true ) ); 
+			add_role(  'gp_membership', 'Standard Membership', array( 'read' => true, 'level_0' => true ) ); 
 			// Change role
 			$user->remove_role( 'customer' );
 			$user->remove_role( 'gp_training_membership' );
