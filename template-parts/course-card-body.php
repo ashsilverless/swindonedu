@@ -25,7 +25,14 @@ if ($current_tags){
 		</span>
 	</a>
 	<div class="description">
-		<?php the_field('synopsis');?>
+		<h4 class="heading heading__6">Learning Objectives</h4>
+		<ul>
+			<?php if( have_rows('learning_objectives') ):
+			$i = 1;
+			while( have_rows('learning_objectives') ): the_row(); ?>
+				<li><p><span><?=$i;?></span><?php the_sub_field('objective');?></p></li>
+			<?php $i++; endwhile; endif;?>
+		</ul>
 		<p class="read-less"><i class="fas fa-times"></i></p>
 	</div>
 </div>

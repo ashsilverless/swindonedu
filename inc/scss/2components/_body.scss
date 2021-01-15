@@ -154,6 +154,14 @@
 		display: none;
 		padding: 1rem 2rem 1rem 7rem;
 		background: white;
+		.heading {
+			margin-bottom: .5rem;
+		}
+		ul {
+			span {
+				margin-right: 1rem;
+			}
+		}
 	}
 	.read-less {
 		position: absolute;
