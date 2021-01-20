@@ -35,8 +35,8 @@ get_header();?>
 		<section>
 			<h2 class="heading heading__5">Team</h2>
 			<div class="team-members">
-				<?php if( have_rows('team', '57') ):
-				while( have_rows('team', '57') ): the_row();
+				<?php if( have_rows('team') ):
+				while( have_rows('team') ): the_row();
 				$teamImage = get_sub_field('picture'); ?>
 					<div class="team-members__item">
 						<img src="<?php echo $teamImage['url'];?>"/>
