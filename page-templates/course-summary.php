@@ -67,6 +67,7 @@ $loop = new WP_Query( $args );?>
 					}
 				wp_reset_postdata();?>
 			</div>
+			<div class="no-results">No results found.  Please adjust the filters or <a href="" class="button button__inline">view all</a></div>
 		</div>
 	</div>
 	<div class="side-content">

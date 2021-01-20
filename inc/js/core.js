@@ -185,4 +185,14 @@ jQuery(document).ready(function($) {
 			$('#plan_expiry_date').val(year + '-' + month + '-' + day);	
 		}
 	});​
+	$('.filter-controls__button').click(function(e) {
+		function checkVis() {
+			if ($('.course-item').is(":hidden")) {
+				$('.no-results').show();
+			} else {
+				$('.no-results').hide();
+			}
+		}
+		setTimeout(checkVis, 700)
+	});​
 }); //Don't remove ---- end of jQuery wrapper

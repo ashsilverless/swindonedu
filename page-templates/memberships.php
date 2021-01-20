@@ -12,7 +12,7 @@ get_header();?>
 			<h2 class="heading heading__5"><?php the_field('heading');?></h2>
 			<?php the_field('copy');?>
 		</section>
-		<section>
+		<!--<section>
 			<ul class="features">
 				<?php if( have_rows('features_list') ):
 				$i = 1;
@@ -26,8 +26,8 @@ get_header();?>
 				</li>
 				<?php $i++; endwhile; endif;?>
 			</ul>
-		</section>
-		<section>
+		</section>-->
+		<!--<section>
 			<div class="toggle">
 				<?php if( have_rows('toggle') ):
 					$i = 1;
@@ -44,11 +44,13 @@ get_header();?>
 					</div>
 				<?php $i++; endwhile; endif;?>
 			</div>
-		</section>
+		</section>-->
 	</div>
+</div>
 	
-	<div class="sidebar-content">
-		<div class="membership-sidebar">
+<div class="container grid-gap memberships">
+
+		<div class="membership-wra">
 			
 		<h4 class="heading heading__5">Annual</h4>
 		<h3 class="heading heading__3">Membership Packages</h3>
@@ -88,7 +90,10 @@ get_header();?>
 				wp_reset_postdata();?>
 			</div>
 		</div>
-	</div>	
+	
+	
+
 </div>
+	
 	
 <?php get_footer();?>
