@@ -43,7 +43,7 @@ $loop = new WP_Query( $args );?>
 				<h2 class="heading heading__5"><?php the_field('sub_heading');?></h2>
 				<?php the_field('lead_copy');?>
 			</section>
-			<section class="filter-target">
+			<!--<section class="filter-target">
 				<?php if ( $loop->have_posts() ) {
 				while ( $loop->have_posts() ) : $loop->the_post();?>
 				
@@ -55,7 +55,7 @@ $loop = new WP_Query( $args );?>
 				}
 				wp_reset_postdata();?>
 				
-			</section>
+			</section>-->
 		<?php } elseif ( in_array( 'gp_membership', (array) $user->roles ) ){?>
 			<section>
 				<h2 class="heading heading__5"><?php the_field('member_heading');?></h2>
@@ -89,7 +89,7 @@ $loop = new WP_Query( $args );?>
 	<div class="side-content">
 		<?php if ( in_array( 'gp_training_membership', (array) $user->roles ) ) {?>
 			<section>
-				<?php get_template_part ('template-parts/course-archive-filter');?>
+				<?php //get_template_part ('template-parts/course-archive-filter');?>
 			</section>
 			<section>
 				<div class="dark-leader">
