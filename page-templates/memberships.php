@@ -49,12 +49,9 @@ get_header();?>
 </div>
 	
 <div class="container grid-gap memberships">
-
-		<div class="membership-wra">
-			
 		<h4 class="heading heading__5">Annual</h4>
 		<h3 class="heading heading__3">Membership Packages</h3>
-			<div class="memberships-cta">
+		<div class="membership-wrap">
 				<?php $args = array(
 					'post_type' => 'product',
 					'posts_per_page' =>  -1,
@@ -88,7 +85,7 @@ get_header();?>
 						echo __( 'No products found' );
 					}
 				wp_reset_postdata();?>
-			</div>
+			
 		</div>
 	
 	

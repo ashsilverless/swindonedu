@@ -798,19 +798,32 @@ ul.features {
 		padding-left: 5rem;
 	}
 }
-
+.memberships {
+	&.container {
+		grid-template-columns: 1fr;
+		grid-gap:.5rem;
+		margin-top: -3rem;
+		margin-bottom: 3rem;
+	}
+	.membership-wrap {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-gap: 2rem;
+		margin-top: 2rem;
+	}
+}
 .memberships-cta {
 	&__item {
-		padding-bottom: 3rem;
-		margin-bottom: 3rem;
-		border-bottom: 2px dashed $color_brand_blue;
-		&:last-of-type {
-			border:none;
-			padding-bottom: 0;
-		}
+		display: flex;
+		flex-direction: column;
+		height: calc(100% - 2rem);
+		padding: 1rem;
+		border-radius: .5rem;
+		background: white;
+
 		.foot {
 			display: grid;
-			grid-template-columns: 1fr 1fr;
+			grid-template-columns: 1fr 2fr;
 			align-items: center;
 		}
 		.cost {
@@ -821,6 +834,9 @@ ul.features {
 				font-size: $font_size * .7px;
 				text-transform: uppercase;
 			}
+		}
+		>p {
+			flex-grow: 1;
 		}
 	}
 }
