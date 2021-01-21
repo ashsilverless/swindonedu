@@ -997,13 +997,6 @@ function show_custom_columns( $column_name, $post_id ) {
   }
 }
 
-add_filter( 'admin_header', 'footer_hide_wpse_51023' );
-
-function footer_hide_wpse_51023()
-{
-	echo '<h1>asfasfdfasfsda fsad fasd fsad fsadfs df asf dsg dg sdfg</h1>';
-}
-
 add_action( 'admin_footer', 'woocommerce_admin_init' );
 function woocommerce_admin_init() {
 	$screen = get_current_screen();
