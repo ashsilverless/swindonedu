@@ -853,6 +853,10 @@ ul.features {
 
 .form-links,
 .general-links {
+	margin-bottom: 2rem;
+	> .heading {
+		margin-bottom: 1rem;
+	}
 	&__item {
 		display: grid;
 		grid-template-columns: auto 5rem;
@@ -867,8 +871,10 @@ ul.features {
 			color: $color_brand_blue;
 		}
 		p {
-			grid-row: 2/3;
+			grid-row: 1/2;
 			grid-column: 1/2;
+			border-bottom: 2px dashed $color_brand_blue;
+			padding-bottom: .5rem;
 		}
 		a{
 			grid-row: 1/3;
