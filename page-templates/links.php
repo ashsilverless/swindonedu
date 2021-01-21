@@ -16,7 +16,7 @@ get_header();?>
 			<div class="general-links">
 			<?php if( have_rows('link_section') ):
 			while( have_rows('link_section') ): the_row(); ?>
-			<h3 class="heading heading__6"><?php the_sub_field('section_heading');?></h3>
+			<h3 class="heading heading__5 heading__color-green"><?php the_sub_field('section_heading');?></h3>
 				<?php if( have_rows('links') ):
 				while( have_rows('links') ): the_row(); ?>
 					<div class="general-links__item">

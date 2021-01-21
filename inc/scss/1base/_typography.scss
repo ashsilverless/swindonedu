@@ -110,6 +110,9 @@ button {
   &__no-caps {
     text-transform: none;
   }
+  &__color-green {
+    color: $color_brand_green;
+  }
 }
 .heading + p {
   margin-top: 1rem;
