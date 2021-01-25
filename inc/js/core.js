@@ -179,7 +179,7 @@ jQuery(document).ready(function($) {
 	$(document).ready( function() {
 		if ($('form.checkout').hasClass('product-type-membership')){
 			var dt = new Date();
-			year  = dt.getFullYear() + 6;
+			year  = dt.getFullYear() + 1;
 			month = (dt.getMonth() + 1).toString().padStart(2, "0");
 			day   = (dt.getDate() - 1).toString().padStart(2, "0");
 			$('#plan_expiry_date').val(year + '-' + month + '-' + day);	
