@@ -590,6 +590,10 @@ body.woocommerce-account .password-reset {
 		}
 		p {
 			grid-column: 2/3;
+			&:first-of-type{
+				grid-column: 1/-1;
+				margin-bottom: 2rem;
+			}
 		}
 		.additional-items {
 			grid-column: 1/-1;

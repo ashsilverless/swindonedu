@@ -32,11 +32,13 @@ foreach( $order->get_items() as $item_id => $item ){
 	$product_id = $item->get_product_id();
 	$product_name = $item->get_name()?>
 	<div class="online-course">
-		<h3>Course Title: <?php echo $product_name;?></h3>
+		<h3 class="heading heading__5">Course Title: <?php echo $product_name;?></h3>
+		<?php the_field('synopsis', $product_id);?>
 		<a href="<?php the_field('online_url', $product_id);?>" class="button">Link to online meeting</a>
 		<p>Meeting ID: <?php the_field('online_meeting_id', $product_id);?></p>
 		<p>Meeting Password: <?php the_field('online_meeting_password', $product_id);?></p>
 		<div class="additional-items">
+			
 			<div>
 				<a href="<?php the_field('course_notes', $product_id);?>" class="button">Course Notes</a>
 			</div>
