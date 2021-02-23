@@ -37,13 +37,35 @@ if ( $show_downloads ) {
 			'show_title' => true,
 		)
 	);
-}
-?>
+} else {?>
 <section class="woocommerce-order-details">
 	<?php do_action( 'woocommerce_order_details_before_order_table', $order ); ?>
 
 	<h2 class="woocommerce-order-details__title"><?php esc_html_e( 'Order details', 'woocommerce' ); ?></h2>
+<section>
+<?php 
+$order_id = get_query_var('view-order');
+$order = wc_get_order( $order_id );
+foreach( $order->get_items() as $item_id => $item ){
+	//Get the product ID
+	$product_id = $item->get_product_id();
+	$product_name = $item->get_name()?>
 
+	<div class="online-course">
+		<h3 class="heading heading__5">Course Title: <?php echo $product_name;?></h3>
+		<?php the_field('synopsis', $product_id);?>
+		<div class="additional-items">
+			<div>
+				<?php if (get_field('course_notes', $product_id)) {?>
+				<a href="<?php the_field('course_notes', $product_id);?>" class="button" target="_blank">Course Notes</a>
+				<?php }?>
+			</div>
+			<?php the_field('additional_notes', $product_id);?>
+		</div>
+	</div>
+
+<?php }?>
+</section>
 	<table class="woocommerce-table woocommerce-table--order-details shop_table order_details">
 
 		<thead>
@@ -99,7 +121,7 @@ if ( $show_downloads ) {
 
 	<?php do_action( 'woocommerce_order_details_after_order_table', $order ); ?>
 </section>
-
+<?php }?>
 <?php
 /**
  * Action hook fired after the order details.

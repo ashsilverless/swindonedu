@@ -40,7 +40,9 @@ foreach( $order->get_items() as $item_id => $item ){
 		<div class="additional-items">
 			
 			<div>
+				<?php if (get_field('course_notes', $product_id)) {?>
 				<a href="<?php the_field('course_notes', $product_id);?>" class="button">Course Notes</a>
+				<?php }?>
 			</div>
 			<?php the_field('additional_notes', $product_id);?>
 		</div>
