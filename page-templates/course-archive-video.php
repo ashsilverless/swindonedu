@@ -41,7 +41,6 @@ $args = array(
 $loop = new WP_Query( $args );?>
 
 <div class="container grid-gap content">
-	
 	<div class="main-content">
 		<section>
 			<div class="lead-copy">

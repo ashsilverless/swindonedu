@@ -88,7 +88,8 @@
 }
 .container {
 	&.content {
-		padding: 3rem 0;
+		padding-top: 3rem;
+		padding-bottom: 3rem;
 	}
 }
 
@@ -925,6 +926,17 @@ ul.features {
 			align-items: center;
 			margin-bottom: .5rem;
 			text-align: left;
+		}
+	}
+	a.woocommerce-button.button.view {
+		margin-bottom: 0;
+	}
+	tr.purchased-order-details{
+		grid-template-columns: 1fr;
+		margin-bottom: 2rem;
+		border-bottom: 2px dashed $color_brand_blue;
+		span {
+			font-weight: 600;
 		}
 	}
 }

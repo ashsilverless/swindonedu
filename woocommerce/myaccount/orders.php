@@ -37,6 +37,10 @@ do_action( 'woocommerce_before_account_orders', $has_orders ); ?>
 			foreach ( $customer_orders->orders as $customer_order ) {
 				$order      = wc_get_order( $customer_order ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 				$item_count = $order->get_item_count() - $order->get_item_count_refunded();
+				foreach($order->get_items() as $item) {
+					$product_name = $item->get_name();
+					$product_desc = $item->get_product();
+				}
 				?>
 				<tr class="woocommerce-orders-table__row woocommerce-orders-table__row--status-<?php echo esc_attr( $order->get_status() ); ?> order">
 					<?php foreach ( wc_get_account_orders_columns() as $column_id => $column_name ) : ?>
@@ -72,9 +76,18 @@ do_action( 'woocommerce_before_account_orders', $has_orders ); ?>
 								}
 								?>
 							<?php endif; ?>
+							
 						</td>
+
 					<?php endforeach; ?>
 				</tr>
+				<tr class="purchased-order-details">
+					<td><h2 class="heading heading__6">Product Title: <span><?php echo $product_name;?></span></h2></td>
+					<!--<td><h1><?php echo $product_desc->synopsis;?></h1>-->
+				</td>
+				</tr>		
+				
+				
 				<?php
 			}
 			?>
