@@ -143,6 +143,10 @@ jQuery(document).ready(function($) {
 			.closest('p')
 			.addClass('selected');
 	});
+	$('.menu-trigger').click(function(e) {
+		e.preventDefault();
+		$('.menu-overlay').slideToggle();
+	});
 	/*
   $(".expanding-section__trigger").click(function (e) {
     e.preventDefault();

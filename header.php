@@ -36,7 +36,7 @@
 	
 	<div id="page" class="site-wrapper">
 		
-		<header>
+		<header class="desktop">
 			<div class="container">
 				<div class="logo">
 					<a href="<?php echo get_home_url(); ?>">
@@ -71,6 +71,51 @@
 					
 				</div>	
 			</div>
+		</header>	
+		
+		<header class="mobile">
+			<div class="container">
+				<div class="logo">
+					<a href="<?php echo get_home_url(); ?>">
+						<?php get_template_part ('inc/img/set-logo');?>
+					</a>
+				</div>
+				<div class="menu-trigger">
+					<i class="fas fa-bars"></i>
+					<i class="far fa-times-circle"></i>
+				</div>
+			</div>	
+			<div class="menu-overlay">
+				<div class="menu-overlay__upper-section">
+					<?php wp_nav_menu( array( 
+						'theme_location' => 'upper-menu'
+					) ); ?>
+					<?php wp_nav_menu( array( 
+					'theme_location' => 'lower-menu'
+				) ); ?>
+				</div>
+				<div class="menu-overlay__lower-section">
+					<div class="sign-up">
+						<?php
+						if ( is_user_logged_in() ) {?>
+							<a href="/my-account">My Account</a>
+						<?php } else {?>
+							<a href="/membership">Join</a>
+						<?php }?>
+					</div>
+					<div class="my-account">
+						<?php
+						if ( is_user_logged_in() ) {?>
+							<a href="<?php echo wp_logout_url('$index.php'); ?>">Log Out</a>
+						<?php } else {?>
+							<a class="trigger-login">Log In</a>
+						<?php }?>
+						
+					</div>
+				</div>
+			</div>
+				
+			
 		</header>	
 		<main>	
 			
