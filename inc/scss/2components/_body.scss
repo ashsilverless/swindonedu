@@ -1106,3 +1106,13 @@ input[type="submit"] {
 	background: $color_brand_blue;
 	color: white;
 } 
+
+.mandatory-notice {
+	&.gdpr {
+		margin-bottom: 2rem;
+		padding-bottom: 1rem;
+		border-bottom: 2px dashed $color_brand_blue;
+		font-size: .8rem;
+		line-height: 1.4;
+	}
+}

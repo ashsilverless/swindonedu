@@ -1725,3 +1725,24 @@ function memberships_admin_init() {
 	
 	}
 }
+
+add_action( 'woocommerce_review_order_before_submit', 'gdpr_notice' );
+function gdpr_notice() {?>
+	<?php $cat_in_cart = false;
+	   
+	foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
+		if ( has_term( 'membership-plan', 'product_cat', $cart_item['product_id'] ) ) {
+			$cat_in_cart = true;
+			break;
+		}
+	}
+	
+	if ( $cat_in_cart ) {?>
+		<p class="mandatory-notice gdpr">By completing this purchase you are consenting to the <a href="<?php the_field('gdpr_document', 'options');?>" target="_blank">Swindon Education Trust GDPR Policy</a></p>
+	<?php }?>
+<?php }?>
+
+
+
+
+

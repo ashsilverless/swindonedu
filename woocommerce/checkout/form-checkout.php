@@ -151,6 +151,7 @@ foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
 				<div class="col-2">
 					<?php do_action( 'woocommerce_checkout_shipping' ); ?>
 				</div>
+				
 			</div>
 
 			<?php do_action( 'woocommerce_checkout_after_customer_details' ); ?>
