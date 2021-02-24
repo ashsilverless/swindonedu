@@ -17,15 +17,43 @@ get_header(); ?>
 			</div>	
 		</section>
 		<section>
-			<h3 class="heading heading__5">Overview:</h3>	
-			<?php the_field('course_overview');?>
+			<?php if (get_field('learning_objectives')) {?>
+			<div class="product-meta__item longform">
+				<h4 class="heading heading__6">Learning Objectives</h4>
+				<ul>
+				<?php if( have_rows('learning_objectives') ):
+				$i = 1;
+				while( have_rows('learning_objectives') ): the_row(); ?>
+					<li><p><span><?=$i;?></span><?php the_sub_field('objective');?></p></li>
+				<?php $i++; endwhile; endif;?>
+				</ul>
+			</div>
+			<?php }?>
 		</section>
 	</div>
 	<div class="side-content">
 		<section>
 			<h3 class="heading heading__5">Details:</h3>	
 			<p>Date Of Training: <?php the_field('delivered_on');?></p>
-			<p>Lecturer: <?php the_field('lecturer');?></p>
+		
+			<?php if( have_rows('course_lecturers') ):?>
+			<div class="lecturer-wrapper">
+			<h4 class="heading heading__6">
+				<?php
+				$lecturers = get_field('course_lecturers');
+				$lecturerCount = count($lecturers);
+					if ($lecturerCount <= 1){
+						echo 'Lecturer';
+					} else {
+						echo 'Lecturers';
+					};?>
+				</h4>
+				<?php while( have_rows('course_lecturers') ): the_row(); ?>
+					<p><?php the_sub_field('lecturer');?></p>
+				<?php endwhile;?>
+			</div>
+			<?php endif;?>
+
 		</section>
 		
 		<?php if( have_rows('attachments') ):
