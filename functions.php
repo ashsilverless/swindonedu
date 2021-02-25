@@ -196,11 +196,11 @@ function bbloomer_alter_price_cart( $cart ) {
  
 	if ( wc_current_user_has_role( 'gp_training_membership' ) || wc_current_user_has_role( 'gp_membership' ) ) {
 		foreach ( $cart->get_cart() as $cart_item_key => $cart_item ) {
-			//if( has_term( 26, 'product_cat' ) ) {
+			if( has_term( 26, 'product_cat' ) ) {
 				$product = $cart_item['data'];
 				$price = $product->get_price();
 				$cart_item['data']->set_price( $price * .0 );
-			//}
+			}
 		}
 	}
 }
@@ -1740,8 +1740,20 @@ function gdpr_notice() {?>
 	if ( $cat_in_cart ) {?>
 		<p class="mandatory-notice gdpr">By completing this purchase you are consenting to the <a href="<?php the_field('gdpr_document', 'options');?>" target="_blank">Swindon Education Trust GDPR Policy</a></p>
 	<?php }?>
-<?php }?>
+<?php }
 
+/**
+ * Auto Complete all WooCommerce orders.
+ */
+add_action( 'woocommerce_thankyou', 'custom_woocommerce_auto_complete_order' );
+function custom_woocommerce_auto_complete_order( $order_id ) { 
+	if ( ! $order_id ) {
+		return;
+	}
+
+	$order = wc_get_order( $order_id );
+	$order->update_status( 'completed' );
+}
 
 
 

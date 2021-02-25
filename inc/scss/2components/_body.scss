@@ -1116,3 +1116,23 @@ input[type="submit"] {
 		line-height: 1.4;
 	}
 }
+.wc-credit-card-form.wc-payment-form {
+	border:none;
+	padding: 1rem 0 0;
+	label {
+		display: none;
+	}
+}
+.wc-stripe-elements-field, .wc-stripe-iban-element-field {
+	border: 1px solid #ddd;
+	margin: 0;
+	padding: 20px;
+	background-color: #fff;
+	outline: 0;
+}
+
+li.wc_payment_method.payment_method_stripe {
+	img {
+		display: none;
+	}
+}

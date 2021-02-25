@@ -64,7 +64,8 @@ foreach( $order->get_items() as $item_id => $item ){
 		</div>
 	</div>
 
-<?php }?>
+<?php }
+?>
 </section>
 	<table class="woocommerce-table woocommerce-table--order-details shop_table order_details">
 

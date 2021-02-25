@@ -639,3 +639,14 @@ body.woocommerce-account .password-reset {
 		margin-top: 2rem;
 	}
 }
+
+body.page-template-page-templatescheckout-php {
+	max-width: none;
+	.woocommerce-order-details {
+		display: none;
+	}
+}
+#error-page {
+	margin: 0;
+	padding: 0;
+}
