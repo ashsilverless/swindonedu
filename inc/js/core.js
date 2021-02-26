@@ -192,9 +192,9 @@ jQuery(document).ready(function($) {
 	$('.filter-controls__button').click(function(e) {
 		function checkVis() {
 			if ($('.course-item').is(":hidden")) {
-				$('.no-results').show();
+				$('.no-results').slideDown();
 			} else {
-				$('.no-results').hide();
+				$('.no-results').slideUp();
 			}
 		}
 		setTimeout(checkVis, 700)
