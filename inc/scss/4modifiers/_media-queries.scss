@@ -163,6 +163,9 @@ $size in $breakpoints {
     .container {
         grid-template-columns: 1fr;
     }
+    .container.reverse {
+        grid-template-columns: 1fr;
+    }
     .home .sidebar-content, .page-template-memberships .sidebar-content {
         margin-top: 0;
     }
