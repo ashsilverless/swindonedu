@@ -650,3 +650,26 @@ body.page-template-page-templatescheckout-php {
 	margin: 0;
 	padding: 0;
 }
+
+.woocommerce-account { 
+	#payment {
+		.input-radio {
+			display: none;
+		}
+	}	
+	.wc-stripe-elements-field, 
+	.wc-stripe-iban-element-field {
+		border: none;
+		margin: 5px 0;
+		padding: 20px;
+	}
+	.woocommerce-MyAccount-paymentMethods {
+		width: 100%;
+		tr {
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr;
+			margin-bottom: 1rem;
+			text-align: left;
+		}
+	}
+}
