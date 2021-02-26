@@ -36,21 +36,45 @@ $loop = new WP_Query( $args );?>
 
 <div class="container content grid-gap">
 	<div class="main-content">
+		<?php
+		$date = date('j F Y');
+		$dateUnix = strtotime($date);
+		$fullArray = array();
+		?>
 		
+		<?php if ( $loop->have_posts() ) {
+		while ( $loop->have_posts() ) : $loop->the_post();?>
 		
+			<?php 
+			$courseDate = get_field('date_of_course');
+			$courseDateUnix = strtotime($courseDate);
+			?>
+			
+			<?php if ($courseDateUnix > $dateUnix) {?>
+			
+				<?php 
+					$terms = get_the_terms( $post->ID, 'product_tag' );
+					foreach ( $terms as $term ) {
+						$term = $term->slug;
+						array_push($fullArray, $term);
+					}
+				?>
+			
+			<?php }?>
+		
+		<?php endwhile;
+		} ?>
+
 		<div class="filter-controls">
 		  	<label>Filter By:</label>
 			<p class="filter filter-controls__button" data-filter="all">All</p>
-			<?php $terms = get_terms(
-			  array(
-				  'taxonomy' => 'product_tag', 
-				  'hide_empty' => true)
-			  ); ?>
-			<?php foreach ( $terms as $term ) { ?>
-				<p class="filter-controls__button filter <?php echo $term->slug;?>" data-filter=".<?php echo $term->slug;?>">
-					<?php echo $term->name;?>
-				</p>	
-			<?php } ?>
+			<?php 
+			$uArray = array_unique($fullArray);
+			foreach ($uArray as $uArrayItem){?>
+				<p class="filter-controls__button filter <?php echo $uArrayItem;?>" data-filter=".<?php echo $uArrayItem;?>">
+				<?php echo $uArrayItem;?>
+				</p>
+			<?php }	?>
 		</div>
 		<div class="pager-list">
 			<!-- Pagination buttons will be generated here -->
