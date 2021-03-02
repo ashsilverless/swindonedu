@@ -44,14 +44,11 @@ $loop = new WP_Query( $args );?>
 		
 		<?php if ( $loop->have_posts() ) {
 		while ( $loop->have_posts() ) : $loop->the_post();?>
-		
 			<?php 
 			$courseDate = get_field('date_of_course');
 			$courseDateUnix = strtotime($courseDate);
 			?>
-			
 			<?php if ($courseDateUnix > $dateUnix) {?>
-			
 				<?php 
 					$terms = get_the_terms( $post->ID, 'product_tag' );
 					foreach ( $terms as $term ) {
@@ -59,12 +56,9 @@ $loop = new WP_Query( $args );?>
 						array_push($fullArray, $term);
 					}
 				?>
-			
 			<?php }?>
-		
 		<?php endwhile;
 		} ?>
-
 		<div class="filter-controls">
 		  	<label>Filter By:</label>
 			<p class="filter filter-controls__button" data-filter="all">All</p>

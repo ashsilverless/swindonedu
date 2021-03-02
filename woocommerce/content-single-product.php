@@ -166,7 +166,14 @@ if ( post_password_required() ) {
 					</ul>
 				</div>
 				<?php }?>
-
+				
+				<?php if (get_field('course_notes')) {?>
+					<div class="course-notes">
+						<h4 class="heading heading__6">Course Notes</h4>
+						<a href="<?php the_field('course_notes');?>" target="_blank"><i class="fas fa-file-alt"></i></a>
+					</div>
+				<?php }?>
+				
 			<?php } else {?>
 				<?php the_field('membership_detail');?>				
 			<?php }?>
