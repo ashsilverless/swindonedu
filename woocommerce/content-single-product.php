@@ -98,11 +98,11 @@ if ( post_password_required() ) {
 				<div class="product-meta">
 					<div class="product-meta__item">
 						<div class="lecturer-wrapper">
-							<?php if( have_rows('lecturers') ):?>
+							<?php if( have_rows('course_lecturer_group') ):?>
 							
 							<h4 class="heading heading__6">
 								<?php
-								$lecturers = get_field('lecturers');
+								$lecturers = get_field('course_lecturer_group');
 								$lecturerCount = count($lecturers);
 									if ($lecturerCount <= 1){
 										echo 'Lecturer';
@@ -112,8 +112,8 @@ if ( post_password_required() ) {
 								</h4>
 							
 							
-							<?php while( have_rows('lecturers') ): the_row(); ?>
-								<p><?php the_sub_field('lecturer');?></p>
+							<?php while( have_rows('course_lecturer_group') ): the_row(); ?>
+								<p><?php the_sub_field('course_lecturer');?></p>
 							<?php endwhile; endif;?>
 						</div>
 					</div>
