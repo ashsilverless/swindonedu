@@ -11,9 +11,9 @@ if ($current_tags){
 		<p><?php the_field('date_of_course');?></p>
 		<h2 class="heading heading__5"><?php the_title();?></h2>
 		<div class="lecturer-wrapper">
-			<?php if( have_rows('lecturers') ):
-			while( have_rows('lecturers') ): the_row(); ?>
-				<p><?php the_sub_field('lecturer');?></p>
+			<?php if( have_rows('course_lecturer_group') ):
+			while( have_rows('course_lecturer_group') ): the_row(); ?>
+				<p><?php the_sub_field('course_lecturer');?></p>
 			<?php endwhile; endif;?>
 		</div>
 		<p class="read-more">Read More<i class="fas fa-chevron-right"></i></p>
