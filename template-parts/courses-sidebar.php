@@ -29,7 +29,7 @@
 	<?php if ( $loop->have_posts() ) {
 	while ( $loop->have_posts() ) : $loop->the_post();
 	$date = get_field('date_of_course');
-	$formattedDate = date("m.d.y", strtotime($date)); ?>
+	$formattedDate = date("d.m.y", strtotime($date)); ?>
 	<a href="<?php the_permalink();?>">
 		<div class="course-item small">
 			<p><?php echo $formattedDate; ?></p>
