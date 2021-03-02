@@ -85,9 +85,11 @@ $loop = new WP_Query( $args );?>
 		
 	</div>
 	<div class="side-content">
+		<?php if (is_page( 'course-archive-video' )){?>
 		<section>
 			<?php get_template_part ('template-parts/course-archive-filter');?>
 		</section>
+		<?php }?>
 		<section>
 			<div class="dark-leader">
 				<p class="heading heading__5">Course Archive</p>
