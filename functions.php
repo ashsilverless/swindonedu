@@ -160,46 +160,71 @@ if (class_exists('Woocommerce')){
 }
    
 /**
-Calculates product price if user is a member (businessbloomer)
+Calculates product price if user is a member (businessbloomer)*/
 
-add_filter( 'woocommerce_get_price_html', 'bbloomer_alter_price_display', 9999, 10 );
- 
-function bbloomer_alter_price_display( $price_html, $product ) {
-	
-	// ONLY ON FRONTEND
-	if ( is_admin() ) return $price_html;
-	
-	// ONLY IF PRICE NOT NULL
-	if ( '' === $product->get_price() ) return $price_html;
-	
-	// IF CUSTOMER LOGGED IN, APPLY DISCOUNT   
-	if ( wc_current_user_has_role( 'gp_training_membership' ) || wc_current_user_has_role( 'gp_membership' ) ) {
-
-		$orig_price = wc_get_price_to_display( $product );
-		$price_html = wc_price( $orig_price * .18 );
-		//$price_html = '<span class="woocommerce-Price-amount amount">FREE</span>';
-		
-	}
-	return $price_html;
-}*/
+// add_filter( 'woocommerce_get_price_html', 'bbloomer_alter_price_display');
+//  
+// function bbloomer_alter_price_display( $price_html, $product ) {
+// 	echo "<h1>sdsadasdsa</h1>";
+// 	// ONLY ON FRONTEND
+// 	if ( is_admin() ) return $price_html;
+// 	
+// 	// ONLY IF PRICE NOT NULL
+// 	if ( '' === $product->get_price() ) return $price_html;
+// 	
+// 	// IF CUSTOMER LOGGED IN, APPLY DISCOUNT   
+// 	$user = wp_get_current_user();
+// 	$allowed_roles = array('administrator');
+// 	if( array_intersect($allowed_roles, $user->roles ) ) {
+// 		
+// 		$orig_price = wc_get_price_to_display( $product );
+// 		$price_html = wc_price( $orig_price * .18 );
+// 		//$price_html = '<span class="woocommerce-Price-amount amount">FREE</span>';
+// 		
+// 	}
+// 	return $price_html;
+// }
  
 /**
 Calculates cart/checkout price if user is a member (businessbloomer)
 */
-add_action( 'woocommerce_before_calculate_totals', 'bbloomer_alter_price_cart', 9999, 10 );
- 
-function bbloomer_alter_price_cart( $cart ) {
+// add_action( 'woocommerce_before_calculate_totals', 'bbloomer_alter_price_cart', 9999, 10 );
+//  
+// function bbloomer_alter_price_cart( $cart ) {
+//  
+// 	if ( is_admin() && ! defined( 'DOING_AJAX' ) ) return;
+//  
+// 	if ( did_action( 'woocommerce_before_calculate_totals' ) >= 2 ) return;
+//  
+//  	$user = wp_get_current_user();
+// 	$allowed_roles = array('administrator');
+// 	if( array_intersect($allowed_roles, $user->roles ) ) {
+// 		echo 'is a user';
+// 		foreach ( $cart->get_cart() as $cart_item_key => $cart_item ) {
+// 			if( has_term( 26, 'product_cat' ) ) {
+// 				
+// 				$product = $cart_item['data'];
+// 				$price = $product->get_price();
+// 				$cart_item['data']->set_price( $price * 7 );
+// 			}
+// 		}
+// 	}
+// }
+
+add_action( 'woocommerce_before_calculate_totals', 'silverless_alter_price_cart', 9999, 10 );
+function silverless_alter_price_cart( $cart_object ) {
  
 	if ( is_admin() && ! defined( 'DOING_AJAX' ) ) return;
  
 	if ( did_action( 'woocommerce_before_calculate_totals' ) >= 2 ) return;
  
-	if ( wc_current_user_has_role( 'gp_training_membership' ) || wc_current_user_has_role( 'gp_membership' ) ) {
-		foreach ( $cart->get_cart() as $cart_item_key => $cart_item ) {
-			if( has_term( 26, 'product_cat' ) ) {
-				$product = $cart_item['data'];
-				$price = $product->get_price();
-				$cart_item['data']->set_price( $price * .0 );
+	$user = wp_get_current_user();
+	$allowed_roles = array('administrator', 'gp_partner', 'sessional_gp', 'whole_practice', 'practice_nurse', 'paramedic', 'pharmacist', 'other_healthcare', 'gp_trainee');
+	if( array_intersect($allowed_roles, $user->roles ) ) {
+		foreach ( $cart_object->get_cart() as $hash => $value ) {
+			if( in_array( 26, $value['data']->get_category_ids() )) {
+				$discountprice = $value['data']->get_regular_price() * 0;
+				$value['data']->set_price( $discountprice );
 			}
 		}
 	}
