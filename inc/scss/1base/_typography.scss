@@ -28,6 +28,12 @@ body a {
   }
 }
 
+body p a {
+  position: relative;
+  border-bottom: 2px solid $color_brand_blue;
+  color: $color_brand_blue; 
+}
+
 h1,
 h2,
 h3,

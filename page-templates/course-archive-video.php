@@ -75,7 +75,8 @@ $loop = new WP_Query( $args );?>
 		
 		<?php } else {?>
 		<section>
-			NOT A GP OR STANDARD MEMBER - Need message here
+			<h2 class="heading heading__5">Members only content</h2>
+			<p>In order to view this content, you must be a member of the Swindon Education Trust.  Want to join.  Simply <a href="/membership">click here</a> to get started.</p>
 		</section>
 		<section>
 			<?php get_template_part ('template-parts/join-cta');?>
