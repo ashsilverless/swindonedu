@@ -24,9 +24,11 @@ if ($current_tags){
 	<div class="summary">
 		<p><?php the_field('delivered_on');?></p>
 		<h2 class="heading heading__5"><?php the_title();?></h2>
+		<div class="lecturer-wrapper">
 		<?php while( have_rows('course_lecturers') ): the_row(); ?>
 		<p><?php the_sub_field('lecturer');?></p>
 		<?php endwhile;?>
+		</div>
 	</div>
 	<a href="<?php the_permalink();?>" class="book">
 		<span>
