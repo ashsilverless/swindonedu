@@ -1189,3 +1189,9 @@ li.wc_payment_method.payment_method_stripe {
 		border-radius: .5rem;
 	}
 }
+.payment_box.payment_method_stripe {
+	margin: 1rem 0;
+	li {
+		margin-bottom: .5rem;
+	}
+}
