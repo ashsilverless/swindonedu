@@ -1142,3 +1142,50 @@ li.wc_payment_method.payment_method_stripe {
 		color: $color_brand_blue;
 	}
 }
+#coupon-wrapper {
+	position: relative;
+	z-index: 99;
+	.container {
+		grid-template-columns: 1fr;
+	}
+	.button-wrapper {
+		position: absolute;
+		top: -1.5rem;
+		left: 1rem;
+	}
+	.button {
+		background: #ebebeb;
+		color: grey;
+		padding: .5rem 2rem;
+		border: 3px solid grey;
+		cursor: pointer;
+	}
+	.checkout_coupon {
+		padding-top: 2rem;
+		input {
+			padding: 0.75rem 1rem;
+			border-radius: 0.5rem;
+			border: none;
+			font-size: 18px;
+			outline-color: #69AA9D;
+			transition: margin 0.3s ease;
+		}
+	}
+	.notice {
+		padding: 0;
+		display: block;
+		margin: 0;
+		.woocommerce-error {
+			display: inline-block;
+			margin-top: 1rem;
+			margin-bottom: .5rem;
+		}
+	}
+	.woocommerce-message {
+		background: #497396;
+		padding: 1rem;
+		margin-top: -2rem;
+		color: white;
+		border-radius: .5rem;
+	}
+}

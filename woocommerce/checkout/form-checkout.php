@@ -63,7 +63,13 @@ foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
 		$product_type = "product-type-course";
 	}
 }?>
-
+<div id="coupon-wrapper">
+	<div class="container">
+		<div class="button-wrapper">
+			<p class="button reveal-coupon">Enter Coupon</p>
+		</div>
+	</div>	
+</div>
 <form name="checkout" method="post" class="checkout woocommerce-checkout <?php echo $product_type;?>" action="<?php echo esc_url( wc_get_checkout_url() ); ?>" enctype="multipart/form-data">
 <div class="container grid-gap content">
 	<div class="main-content <?php echo $userStatus;?>">

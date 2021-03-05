@@ -199,4 +199,12 @@ jQuery(document).ready(function($) {
 		}
 		setTimeout(checkVis, 700)
 	});​
+	
+	$('.checkout_coupon').prependTo('#coupon-wrapper .container');
+	
+	$('.reveal-coupon').click(function(e) {
+		e.preventDefault();
+		$(this).fadeOut();
+		$('.checkout_coupon').slideDown();
+	});	
 }); //Don't remove ---- end of jQuery wrapper

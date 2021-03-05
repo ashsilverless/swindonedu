@@ -1781,5 +1781,9 @@ function custom_woocommerce_auto_complete_order( $order_id ) {
 }
 
 
+/* MOVE THE COUPON FIELD */
 
+// remove_action( 'woocommerce_before_checkout_form', 'woocommerce_checkout_coupon_form', 10 );
+// 
+// add_action( 'woocommerce_after_order_notes', 'woocommerce_checkout_coupon_form' );
 
