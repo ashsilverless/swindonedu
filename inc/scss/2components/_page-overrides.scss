@@ -48,6 +48,13 @@
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	grid-column-gap: 2rem;
+	#billing_company_field {
+		grid-column: 1/-1;
+	}
+	#billing_country_field,
+	#billing_address_2_field {
+		display: none !important;
+	}
 }
 
 h3#order_review_heading {
@@ -548,7 +555,7 @@ body.woocommerce-account .password-reset {
 .notice {
 	position: relative;
 	.woocommerce-error {
-		margin-top: -2rem;
+		margin-top: 4rem;
 		padding: .5rem 1rem .5rem 2rem;
 		border-radius: .5rem;
 		background: red;
@@ -673,3 +680,5 @@ body.page-template-page-templatescheckout-php {
 		}
 	}
 }
+
+
