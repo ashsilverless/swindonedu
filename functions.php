@@ -1748,9 +1748,7 @@ function gdpr_notice() {?>
 	<?php }?>
 <?php }
 
-/**
- * Auto Complete all WooCommerce orders.
- 
+/*** Auto Complete all WooCommerce orders.***/
 
 add_filter( 'woocommerce_payment_complete_order_status', 'auto_complete_virtual_orders', 10, 3 );
 
@@ -1779,7 +1777,6 @@ $payment_complete_status = 'completed';
 return $payment_complete_status;
 }
 
-*/
 
 add_action( 'woocommerce_before_calculate_totals', 'silverless_alter_price_cart', 9999, 10 );
 function silverless_alter_price_cart( $cart_object ) {
