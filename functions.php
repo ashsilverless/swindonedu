@@ -211,25 +211,6 @@ Calculates cart/checkout price if user is a member (businessbloomer)
 // 	}
 // }
 
-add_action( 'woocommerce_before_calculate_totals', 'silverless_alter_price_cart', 9999, 10 );
-function silverless_alter_price_cart( $cart_object ) {
- 
-	if ( is_admin() && ! defined( 'DOING_AJAX' ) ) return;
- 
-	if ( did_action( 'woocommerce_before_calculate_totals' ) >= 2 ) return;
- 
-	$user = wp_get_current_user();
-	$allowed_roles = array('administrator', 'gp_partner', 'sessional_gp', 'whole_practice', 'practice_nurse', 'paramedic', 'pharmacist', 'other_healthcare', 'gp_trainee');
-	if( array_intersect($allowed_roles, $user->roles ) ) {
-		foreach ( $cart_object->get_cart() as $hash => $value ) {
-			if( in_array( 26, $value['data']->get_category_ids() )) {
-				$discountprice = $value['data']->get_regular_price() * 0;
-				$value['data']->set_price( $discountprice );
-			}
-		}
-	}
-}
-
 /**
 Add Custom Field to Checkout
 
@@ -1769,21 +1750,53 @@ function gdpr_notice() {?>
 
 /**
  * Auto Complete all WooCommerce orders.
- */
-add_action( 'woocommerce_thankyou', 'custom_woocommerce_auto_complete_order' );
-function custom_woocommerce_auto_complete_order( $order_id ) { 
-	if ( ! $order_id ) {
-		return;
-	}
+ 
 
-	$order = wc_get_order( $order_id );
-	$order->update_status( 'completed' );
+add_filter( 'woocommerce_payment_complete_order_status', 'auto_complete_virtual_orders', 10, 3 );
+
+function auto_complete_virtual_orders( $payment_complete_status, $order_id, $order ) {
+$current_status = $order->get_status();
+// We only want to update the status to 'completed' if it's coming from one of the following statuses:
+$allowed_current_statuses = array( 'on-hold', 'pending', 'failed' );
+
+if ( 'processing' === $payment_complete_status && in_array( $current_status, $allowed_current_statuses ) ) {
+
+$order_items = $order->get_items();
+
+// Create an array of products in the order
+$order_products = array_filter( array_map( function( $item ) {
+// Get associated product for each line item
+return $item->get_product();
+}, $order_items ), function( $product ) {
+// Remove non-products
+return !! $product;
+} );
+
+if ( count( $order_products > 0 ) ) {
+$payment_complete_status = 'completed';
+}
+}
+return $payment_complete_status;
 }
 
+*/
 
-/* MOVE THE COUPON FIELD */
-
-// remove_action( 'woocommerce_before_checkout_form', 'woocommerce_checkout_coupon_form', 10 );
-// 
-// add_action( 'woocommerce_after_order_notes', 'woocommerce_checkout_coupon_form' );
-
+add_action( 'woocommerce_before_calculate_totals', 'silverless_alter_price_cart', 9999, 10 );
+function silverless_alter_price_cart( $cart_object ) {
+ 
+	if ( is_admin() && ! defined( 'DOING_AJAX' ) ) return;
+ 
+	if ( did_action( 'woocommerce_before_calculate_totals' ) >= 2 ) return;
+ 
+	$user = wp_get_current_user();
+	$roles = ( array ) $user->roles;
+	$allowed_roles = array('gp_membership', 'gp_training_membership');
+	if( array_intersect($allowed_roles, $user->roles ) ) {
+		foreach ( $cart_object->get_cart() as $hash => $value ) {
+			if( in_array( 26, $value['data']->get_category_ids() )) {
+				$discountprice = $value['data']->get_regular_price() * 0;
+				$value['data']->set_price( $discountprice );
+			}
+		}
+	}
+}

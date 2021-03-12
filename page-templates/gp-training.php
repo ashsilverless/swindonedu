@@ -56,7 +56,7 @@ $loop = new WP_Query( $args );?>
 				wp_reset_postdata();?>
 				
 			</section>-->
-		<?php } elseif ( in_array( 'gp_membership', (array) $user->roles ) ){?>
+		<?php } elseif ( in_array( 'gp_trainee', (array) $user->roles ) ){?>
 			<section>
 				<h2 class="heading heading__5"><?php the_field('member_heading');?></h2>
 				<?php the_field('member_copy');?>
