@@ -383,7 +383,6 @@ function wpse_120741_wc_def_state_label( $address_fields ) {
 	 return $address_fields;
 }
 
-
 ///////////////////////////////
 // 3. SAVE FIELDS
   
