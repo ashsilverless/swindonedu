@@ -204,6 +204,7 @@ if ( post_password_required() ) {
 						<h4 class="heading heading__6">Cost</h4>
 						<p>Non-members<span> <?php echo $product->get_price_html(); ?></span></p>
 						<p>Members<span> £FREE</span></p>
+						<?php filter_get_stock_html($product);?>
 					</div>
 					<?php }else{?>
 						<div class="product-meta__item membership">

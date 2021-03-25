@@ -1685,3 +1685,13 @@ function silverless_alter_price_cart( $cart_object ) {
 		}
 	}
 }
+
+add_filter( 'woocommerce_get_stock_html', 'filter_get_stock_html', 10, 2 );
+function filter_get_stock_html( $product ) {
+	$low_stock_qty = get_option('woocommerce_notify_low_stock_amount');
+	$availability = $product->get_stock_quantity();
+	$avail_text = 'Limited Places Remaining';
+	if ($availability <= $low_stock_qty) {
+		echo '<p class="stock-low">' . $avail_text . '</p>';
+	}
+}
