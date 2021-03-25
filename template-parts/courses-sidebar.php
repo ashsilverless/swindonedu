@@ -35,7 +35,7 @@
 			<p><?php echo $formattedDate; ?></p>
 			<p><?php the_title();?></p>
 			<i class="fas fa-chevron-right"></i>
-			<!--<?php global $product; filter_get_stock_html($product);?>-->
+			<?php global $product; filter_get_stock_html($product);?>
 		</div>
 		
 	</a>

@@ -1691,7 +1691,8 @@ function filter_get_stock_html( $product ) {
 	$low_stock_qty = get_option('woocommerce_notify_low_stock_amount');
 	$availability = $product->get_stock_quantity();
 	$avail_text = 'Limited Places Remaining';
-	if ($availability <= $low_stock_qty) {
+	
+	if ($availability && $availability <= $low_stock_qty) {
 		echo '<p class="stock-low">' . $avail_text . '</p>';
 	}
 }
